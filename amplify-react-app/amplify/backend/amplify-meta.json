@@ -1,0 +1,57 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-apptorneos-dev-15259-authRole",
+      "UnauthRoleArn": "arn:aws:iam::855561253162:role/amplify-apptorneos-dev-15259-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::855561253162:role/amplify-apptorneos-dev-15259-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-apptorneos-dev-15259-deployment",
+      "UnauthRoleName": "amplify-apptorneos-dev-15259-unauthRole",
+      "StackName": "amplify-apptorneos-dev-15259",
+      "StackId": "arn:aws:cloudformation:eu-west-2:855561253162:stack/amplify-apptorneos-dev-15259/1d7ec800-2f06-11ec-ac07-06d44c2553b0",
+      "AmplifyAppId": "d1a3nedo9xg919"
+    }
+  },
+  "auth": {
+    "apptorneos9fda9476": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "loginMechanisms": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-apptorneos-dev-15259-deployment/amplify-cfn-templates/auth/apptorneos9fda9476-cloudformation-template.yml",
+        "logicalId": "authapptorneos9fda9476"
+      },
+      "lastPushTimeStamp": "2021-10-17T04:58:44.097Z",
+      "output": {
+        "UserPoolId": "eu-west-2_w0HEhz0nk",
+        "AppClientIDWeb": "6n5li7ibaiaptp1d5l9irb8tt4",
+        "AppClientID": "5oo2q433889mec9o1as4dqvnd",
+        "IdentityPoolId": "eu-west-2:c3146567-b913-43d9-afc4-a06f4ebeb0b8",
+        "UserPoolArn": "arn:aws:cognito-idp:eu-west-2:855561253162:userpool/eu-west-2_w0HEhz0nk",
+        "IdentityPoolName": "apptorneos9fda9476_identitypool_9fda9476__dev",
+        "UserPoolName": "apptorneos9fda9476_userpool_9fda9476"
+      },
+      "lastPushDirHash": "q0r8ESBrbeQXYFk9PP3zBfN46h0="
+    }
+  }
+}
