@@ -4,7 +4,9 @@
   position: relative;
   background-image: url('./imagenes/fondo.jpg');
   background-size: cover;
-
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -18,18 +20,26 @@
   }
 }
 
-.App-header {
+.fondo{
+  background-color: #282c34;
+}
+
+.App-Torneos {
   /*background-color: #282c34;*/
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: black;
 }
 
-
+:root {
+  --amplify-primary-color: 	#ff9900;
+  --amplify-primary-tint: #ff7359;
+  --amplify-primary-shade: #e0573e;
+}
 
 .App-link {
   color: #61dafb;

@@ -6,7 +6,7 @@ import Header  from './components/Header/Header';
 import Home from './pages/Home/Home';
 import Torneos from './pages/Torneos/Torneos';
 import history from "./helpers/history";
-import {AmplifySignOut, withAuthenticator} from '@aws-amplify/ui-react';
+import {withAuthenticator} from '@aws-amplify/ui-react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
@@ -17,7 +17,7 @@ function App() {
     <div className="App">
      <Router history={history}>
         <Header />
-        <div class="App-header">
+        <div>
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/torneos" exact component={Torneos} />
