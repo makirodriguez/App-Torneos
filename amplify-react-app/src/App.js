@@ -2,7 +2,7 @@ import './App.css';
 import { Router, Switch, Route, Redirect } from "react-router-dom";
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
-import Header  from './components/Header';
+import Header  from './components/Header/Header';
 import Home from './pages/Home/Home';
 import Torneos from './pages/Torneos/Torneos';
 import history from "./helpers/history";
