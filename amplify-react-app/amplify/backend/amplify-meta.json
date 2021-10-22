@@ -41,7 +41,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-apptorneos-dev-15259-deployment/amplify-cfn-templates/auth/apptorneos9fda9476-cloudformation-template.yml",
         "logicalId": "authapptorneos9fda9476"
       },
-      "lastPushTimeStamp": "2021-10-22T19:00:49.896Z",
+      "lastPushTimeStamp": "2021-10-22T21:42:03.880Z",
       "output": {
         "UserPoolId": "eu-west-2_w0HEhz0nk",
         "AppClientIDWeb": "6n5li7ibaiaptp1d5l9irb8tt4",
@@ -77,7 +77,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-apptorneos-dev-15259-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apitorneosapi"
       },
-      "lastPushTimeStamp": "2021-10-22T19:00:51.532Z",
+      "lastPushTimeStamp": "2021-10-22T21:42:03.881Z",
       "lastPushDirHash": "KBU7XGIcryxS0UV4HDhX0rCwj74="
     }
   }
