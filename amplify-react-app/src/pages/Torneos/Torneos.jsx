@@ -2,6 +2,7 @@ import { useState, useEffect, Fragment } from 'react';
 import {API} from 'aws-amplify';
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const Torneo = () => {
@@ -74,18 +75,22 @@ const Torneo = () => {
               onChange={handleInputChange}/> 
             </div>
             <div className="col-md-2">
-              <input className="form-control"
-              placeholder="Ingrese la descripcion"
-              type="text" 
-              name="description" 
-              onChange={handleInputChange}/> 
+              <textarea class="form-control" 
+                id="exampleFormControlTextarea1"  
+                placeholder="Ingrese la descripcion"
+                type="text" 
+                name="description" 
+                onChange={handleInputChange} 
+                rows="3">
+              </textarea>
             </div>
             <div className="col-md-2">
               <button className="btn btn-dark">Crear torneo</button>
             </div>
+            
           </form>
-        </div>
-        <div>    
+        </div> 
+        <div>
           <p> Torneo: {torneos.name}- {torneos.sport}</p>
           {listTorneos && listTorneos.map(item =>
             <li key={item.id}>
