@@ -1,10 +1,10 @@
 type Torneo @model {
   id: ID!
-  name: String!
-  sport: String!
-  startDate: String!
-  endDate: String!
-  description: String!
+  name: String
+  sport: String
+  startDate: String
+  endDate: String
+  description: String
 }
 
 
