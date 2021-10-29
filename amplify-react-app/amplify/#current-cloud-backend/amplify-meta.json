@@ -41,7 +41,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-apptorneos-dev-15259-deployment/amplify-cfn-templates/auth/apptorneos9fda9476-cloudformation-template.yml",
         "logicalId": "authapptorneos9fda9476"
       },
-      "lastPushTimeStamp": "2021-10-17T04:58:44.097Z",
+      "lastPushTimeStamp": "2021-10-22T19:00:49.896Z",
       "output": {
         "UserPoolId": "eu-west-2_w0HEhz0nk",
         "AppClientIDWeb": "6n5li7ibaiaptp1d5l9irb8tt4",
@@ -52,6 +52,33 @@
         "UserPoolName": "apptorneos9fda9476_userpool_9fda9476"
       },
       "lastPushDirHash": "q0r8ESBrbeQXYFk9PP3zBfN46h0="
+    }
+  },
+  "api": {
+    "torneosapi": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 365,
+              "description": "torneos api key"
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "zvn66d4q4jd5lhclmuluxfgkze",
+        "GraphQLAPIEndpointOutput": "https://xtkalw63wja2zjqp7f7wkqunw4.appsync-api.eu-west-2.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-4m4l5jovlvcatedpvfmsj4tnpm"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-apptorneos-dev-15259-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apitorneosapi"
+      },
+      "lastPushTimeStamp": "2021-10-22T19:00:51.532Z",
+      "lastPushDirHash": "KBU7XGIcryxS0UV4HDhX0rCwj74="
     }
   }
 }

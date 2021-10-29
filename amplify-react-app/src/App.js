@@ -8,7 +8,12 @@ import Torneos from './pages/Torneos/Torneos';
 import Perfil from './pages/Perfil/Perfil';
 import history from "./helpers/history";
 import {withAuthenticator} from '@aws-amplify/ui-react';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { API, graphqlOperation} from 'aws-amplify';
+import { listTorneos } from '../src/graphql/queries';
+import React, { useState, useEffect } from 'react';
+
+
 
 
 Amplify.configure(awsconfig);
@@ -34,3 +39,4 @@ function App() {
 }
 
 export default withAuthenticator(App);
+
