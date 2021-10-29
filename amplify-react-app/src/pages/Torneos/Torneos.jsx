@@ -41,63 +41,78 @@ const Torneo = () => {
     setTorneos({...torneos, [e.target.name]: e.target.value})
   }
 
-  return(
-    <Fragment>
-        <div>
+return(
+  <Fragment>
+    <div class="container rounded bg-white mt-5 mb-5">
+      <h1>Nuevo torneo</h1>
+        <form className="column" onSubmit={handleFormSubmit}>
+          <div class="p-2 py-6">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div class="col-md">
+                <label class="labels">Nombre del torneo</label>
+                <input  className="form-control"
+                placeholder="Ingrese el nombre del torneo"  
+                type="text" 
+                name="name" 
+                onChange={handleInputChange}/>
+              </div>
+            </div>
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="col-md">
+                  <label class="labels">Nombre del deporte</label>
+                  <input className="form-control"
+                  placeholder="Ingrese el deporte" 
+                  type="text" 
+                  name="sport" 
+                  onChange={handleInputChange}/> 
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="col-md">
+                  <label class="labels">Fecha de inicio del torneo</label>
+                  <input className="form-control" 
+                  type="date" 
+                  name="startDate" 
+                  onChange={handleInputChange}/> 
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="col-md">
+                  <label class="labels">Fecha de finalización del torneo</label>
+                  <input className="form-control" 
+                  type="date" 
+                  name="endDate" 
+                  onChange={handleInputChange}/> 
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="col-md">
+                  <label class="labels">Descripción del torneo</label>
+                  <input className="form-control"
+                  placeholder="Ingrese la descripcion"
+                  type="text" 
+                  name="description" 
+                  onChange={handleInputChange}/> 
+                </div>
+              </div>
+              <div class="d-flex justify-content-center align-items-center mb-3">
+                <button className="btn btn-dark">Crear torneo</button>
+              </div>
+          </div>
+        </form>
+          <div>    
+            <p> Torneo: {torneos.name}- {torneos.sport}</p>
+            {listTorneos && listTorneos.map(item =>
+              <li key={item.id}>
+                {item.name}
+                {item.sport}
+              </li>
+              )}
+          </div>
+    </div>
+  </Fragment>
+);} 
 
-          <h1>Nuevo torneo</h1>
-          <form className="column" onSubmit={handleFormSubmit}>
-            <div className="col-md-2">
-              <input  className="form-control"
-              placeholder="Ingrese el nombre del torneo"  
-              type="text" 
-              name="name" 
-              onChange={handleInputChange}/>
-            </div>
-            <div className="col-md-2">
-              <input className="form-control"
-              placeholder="Ingrese el deporte" 
-              type="text" 
-              name="sport" 
-              onChange={handleInputChange}/> 
-            </div>
-            <div className="col-md-2">
-              <input className="form-control" 
-              type="date" 
-              name="startDate" 
-              onChange={handleInputChange}/> 
-            </div>
-            <div className="col-md-2">
-              <input className="form-control" 
-              type="date" 
-              name="endDate" 
-              onChange={handleInputChange}/> 
-            </div>
-            <div className="col-md-2">
-              <input className="form-control"
-              placeholder="Ingrese la descripcion"
-              type="text" 
-              name="description" 
-              onChange={handleInputChange}/> 
-            </div>
-            <div className="col-md-2">
-              <button className="btn btn-dark">Crear torneo</button>
-            </div>
-          </form>
-        </div>
-        <div>    
-          <p> Torneo: {torneos.name}- {torneos.sport}</p>
-          {listTorneos && listTorneos.map(item =>
-            <li key={item.id}>
-              {item.name}
-              {item. sport}
-            </li>
-          )}
-        </div>
-    </Fragment>
-  );
-} 
-     
 export default Torneo;
     
 
