@@ -67,28 +67,28 @@ return(
                   onChange={handleInputChange}/> 
                 </div>
               </div>
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="col-md">
-                  <label class="labels">Fecha de inicio del torneo</label>
-                  <input className="form-control" 
-                  type="date" 
-                  name="startDate" 
-                  onChange={handleInputChange}/> 
-                </div>
-              </div>
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="col-md">
-                  <label class="labels">Fecha de finalización del torneo</label>
-                  <input className="form-control" 
-                  type="date" 
-                  name="endDate" 
-                  onChange={handleInputChange}/> 
+              <div class="mb-3">
+                <div class="row">
+                  <div class="col-md">
+                    <label class="labels">Fecha de inicio del torneo</label>
+                    <input className="form-control" 
+                    type="date" 
+                    name="startDate" 
+                    onChange={handleInputChange}/>
+                  </div>
+                    <div class="col-md">
+                      <label class="labels">Fecha de finalización del torneo</label>
+                      <input className="form-control" 
+                      type="date" 
+                      name="endDate" 
+                      onChange={handleInputChange}/> 
+                    </div>
                 </div>
               </div>
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <div class="col-md">
                   <label class="labels">Descripción del torneo</label>
-                  <input className="form-control"
+                  <textarea className="form-control"
                   placeholder="Ingrese la descripcion"
                   type="text" 
                   name="description" 
@@ -101,7 +101,7 @@ return(
           </div>
         </form>
           <div>    
-            <p> Torneo: {torneos.name}- {torneos.sport}</p>
+            <p> Torneo: {torneos.name} - {torneos.sport}</p>
             {listTorneos && listTorneos.map(item =>
               <li key={item.id}>
                 {item.name}
