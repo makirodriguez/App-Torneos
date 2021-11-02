@@ -3,6 +3,7 @@
   text-align: center;
   position: relative;
   background-image: url("./imagenes/fondo.jpg");
+  background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
