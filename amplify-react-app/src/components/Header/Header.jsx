@@ -14,6 +14,7 @@ const Header = () => {
                         <li><Link to="/torneos" class="nav-link px-2 text-white">Torneos</Link></li>
                         <li><Link to="#" class="nav-link px-2 text-white">FAQs</Link></li>
                         <li><Link to="/perfil" class="nav-link px-2 text-white">Perfil</Link></li>
+                        <li><Link to="/mis-torneos" class="nav-link px-2 text-white">Mis Torneos</Link></li>
                     </ul>
             
                     <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
