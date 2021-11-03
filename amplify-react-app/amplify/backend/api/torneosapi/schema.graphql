@@ -7,4 +7,14 @@ type Torneo @model {
   description: String
 }
 
+type Perfil @model {
+  idPerfil: ID!
+  name: String
+  lastName: String
+  number: String
+  email: String
+  country: String
+  province: String
+  filePath: String
+}
 

@@ -36,3 +36,44 @@ export const listTorneos = /* GraphQL */ `
     }
   }
 `;
+export const getPerfil = /* GraphQL */ `
+  query GetPerfil($id: ID!) {
+    getPerfil(id: $id) {
+      id
+      idPerfil
+      name
+      lastName
+      number
+      email
+      country
+      province
+      filePath
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listPerfils = /* GraphQL */ `
+  query ListPerfils(
+    $filter: ModelPerfilFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPerfils(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        idPerfil
+        name
+        lastName
+        number
+        email
+        country
+        province
+        filePath
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

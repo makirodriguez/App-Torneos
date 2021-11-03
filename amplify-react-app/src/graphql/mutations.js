@@ -52,3 +52,63 @@ export const deleteTorneo = /* GraphQL */ `
     }
   }
 `;
+export const createPerfil = /* GraphQL */ `
+  mutation CreatePerfil(
+    $input: CreatePerfilInput!
+    $condition: ModelPerfilConditionInput
+  ) {
+    createPerfil(input: $input, condition: $condition) {
+      id
+      idPerfil
+      name
+      lastName
+      number
+      email
+      country
+      province
+      filePath
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updatePerfil = /* GraphQL */ `
+  mutation UpdatePerfil(
+    $input: UpdatePerfilInput!
+    $condition: ModelPerfilConditionInput
+  ) {
+    updatePerfil(input: $input, condition: $condition) {
+      id
+      idPerfil
+      name
+      lastName
+      number
+      email
+      country
+      province
+      filePath
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deletePerfil = /* GraphQL */ `
+  mutation DeletePerfil(
+    $input: DeletePerfilInput!
+    $condition: ModelPerfilConditionInput
+  ) {
+    deletePerfil(input: $input, condition: $condition) {
+      id
+      idPerfil
+      name
+      lastName
+      number
+      email
+      country
+      province
+      filePath
+      createdAt
+      updatedAt
+    }
+  }
+`;

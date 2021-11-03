@@ -33,6 +33,7 @@ const Torneo = () => {
       endDate: torneos.endDate,
       description: torneos.description
     } 
+    console.log((createTorneoInput))
     await API.graphql({query: mutations.createTorneo, variables: {input: createTorneoInput}});
   }
 

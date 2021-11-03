@@ -43,3 +43,54 @@ export const onDeleteTorneo = /* GraphQL */ `
     }
   }
 `;
+export const onCreatePerfil = /* GraphQL */ `
+  subscription OnCreatePerfil {
+    onCreatePerfil {
+      id
+      idPerfil
+      name
+      lastName
+      number
+      email
+      country
+      province
+      filePath
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdatePerfil = /* GraphQL */ `
+  subscription OnUpdatePerfil {
+    onUpdatePerfil {
+      id
+      idPerfil
+      name
+      lastName
+      number
+      email
+      country
+      province
+      filePath
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeletePerfil = /* GraphQL */ `
+  subscription OnDeletePerfil {
+    onDeletePerfil {
+      id
+      idPerfil
+      name
+      lastName
+      number
+      email
+      country
+      province
+      filePath
+      createdAt
+      updatedAt
+    }
+  }
+`;

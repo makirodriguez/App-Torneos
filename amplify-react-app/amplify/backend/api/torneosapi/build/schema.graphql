@@ -1,10 +1,24 @@
 type Torneo {
   id: ID!
-  name: String!
-  sport: String!
-  startDate: String!
-  endDate: String!
-  description: String!
+  name: String
+  sport: String
+  startDate: String
+  endDate: String
+  description: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Perfil {
+  id: ID!
+  idPerfil: ID!
+  name: String
+  lastName: String
+  number: String
+  email: String
+  country: String
+  province: String
+  filePath: String
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -120,15 +134,17 @@ enum ModelAttributeTypes {
 type Query {
   getTorneo(id: ID!): Torneo
   listTorneos(filter: ModelTorneoFilterInput, limit: Int, nextToken: String): ModelTorneoConnection
+  getPerfil(id: ID!): Perfil
+  listPerfils(filter: ModelPerfilFilterInput, limit: Int, nextToken: String): ModelPerfilConnection
 }
 
 input CreateTorneoInput {
   id: ID
-  name: String!
-  sport: String!
-  startDate: String!
-  endDate: String!
-  description: String!
+  name: String
+  sport: String
+  startDate: String
+  endDate: String
+  description: String
 }
 
 input UpdateTorneoInput {
@@ -148,6 +164,9 @@ type Mutation {
   createTorneo(input: CreateTorneoInput!, condition: ModelTorneoConditionInput): Torneo
   updateTorneo(input: UpdateTorneoInput!, condition: ModelTorneoConditionInput): Torneo
   deleteTorneo(input: DeleteTorneoInput!, condition: ModelTorneoConditionInput): Torneo
+  createPerfil(input: CreatePerfilInput!, condition: ModelPerfilConditionInput): Perfil
+  updatePerfil(input: UpdatePerfilInput!, condition: ModelPerfilConditionInput): Perfil
+  deletePerfil(input: DeletePerfilInput!, condition: ModelPerfilConditionInput): Perfil
 }
 
 input ModelTorneoConditionInput {
@@ -165,4 +184,67 @@ type Subscription {
   onCreateTorneo: Torneo @aws_subscribe(mutations: ["createTorneo"])
   onUpdateTorneo: Torneo @aws_subscribe(mutations: ["updateTorneo"])
   onDeleteTorneo: Torneo @aws_subscribe(mutations: ["deleteTorneo"])
+  onCreatePerfil: Perfil @aws_subscribe(mutations: ["createPerfil"])
+  onUpdatePerfil: Perfil @aws_subscribe(mutations: ["updatePerfil"])
+  onDeletePerfil: Perfil @aws_subscribe(mutations: ["deletePerfil"])
+}
+
+type ModelPerfilConnection {
+  items: [Perfil]
+  nextToken: String
+}
+
+input ModelPerfilFilterInput {
+  idPerfil: ModelIDInput
+  name: ModelStringInput
+  lastName: ModelStringInput
+  number: ModelStringInput
+  email: ModelStringInput
+  country: ModelStringInput
+  province: ModelStringInput
+  filePath: ModelStringInput
+  and: [ModelPerfilFilterInput]
+  or: [ModelPerfilFilterInput]
+  not: ModelPerfilFilterInput
+}
+
+input CreatePerfilInput {
+  id: ID
+  idPerfil: ID!
+  name: String
+  lastName: String
+  number: String
+  email: String
+  country: String
+  province: String
+  filePath: String
+}
+
+input UpdatePerfilInput {
+  idPerfil: ID
+  name: String
+  lastName: String
+  number: String
+  email: String
+  country: String
+  province: String
+  filePath: String
+}
+
+input DeletePerfilInput {
+  id: ID!
+}
+
+input ModelPerfilConditionInput {
+  idPerfil: ModelIDInput
+  name: ModelStringInput
+  lastName: ModelStringInput
+  number: ModelStringInput
+  email: ModelStringInput
+  country: ModelStringInput
+  province: ModelStringInput
+  filePath: ModelStringInput
+  and: [ModelPerfilConditionInput]
+  or: [ModelPerfilConditionInput]
+  not: ModelPerfilConditionInput
 }

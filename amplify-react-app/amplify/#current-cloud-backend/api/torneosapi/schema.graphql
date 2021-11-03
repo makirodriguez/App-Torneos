@@ -1,10 +1,20 @@
 type Torneo @model {
   id: ID!
-  name: String!
-  sport: String!
-  startDate: String!
-  endDate: String!
-  description: String!
+  name: String
+  sport: String
+  startDate: String
+  endDate: String
+  description: String
 }
 
+type Perfil @model {
+  idPerfil: ID!
+  name: String
+  lastName: String
+  number: String
+  email: String
+  country: String
+  province: String
+  filePath: String
+}
 
