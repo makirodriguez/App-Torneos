@@ -4,6 +4,7 @@ import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
 
 
+
 const Perfil = () => {
 
     const [perfil, setPerfil] = useState({
@@ -28,7 +29,7 @@ const Perfil = () => {
     
       const handleFormSubmit = async (e)  =>{
     
-         const createPerfilInput = {
+         const CreatePerfilInput = {
             name: perfil.name,
             lastName: perfil.lastName,
             number: perfil.number,
@@ -37,7 +38,7 @@ const Perfil = () => {
             province: perfil.province,
             filePath: ''
         } 
-         await API.graphql({query: mutations.createPerfil, variables: {input: createPerfilInput}}); 
+         await API.graphql({query: mutations.createPerfil, variables: {input: CreatePerfilInput}}); 
       }
 
     
