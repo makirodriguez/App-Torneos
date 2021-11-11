@@ -12,9 +12,9 @@ const Header = () => {
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><Link to="/" class="nav-link px-2 text-white">Home</Link></li>
                         <li><Link to="/torneos" class="nav-link px-2 text-white">Torneos</Link></li>
-                        <li><Link to="#" class="nav-link px-2 text-white">FAQs</Link></li>
-                        <li><Link to="/perfil" class="nav-link px-2 text-white">Perfil</Link></li>
                         <li><Link to="/mis-torneos" class="nav-link px-2 text-white">Mis Torneos</Link></li>
+                        <li><Link to="/perfil" class="nav-link px-2 text-white">Perfil</Link></li>
+                        <li><Link to="#" class="nav-link px-2 text-white">FAQs</Link></li>
                     </ul>
             
                     <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">

@@ -14,14 +14,14 @@ const Torneo = () => {
     description: ''
   });
 
-  const [listTorneos, setListTorneos] = useState([]);
+   const [listTorneos, setListTorneos] = useState([]);
   useEffect(() =>{
       async function getAllTorneos(){
         const allTorneos = await API.graphql({query: queries.listTorneos});
         setListTorneos(allTorneos.data.listTorneos.items);  
       }
     getAllTorneos();
-  }); 
+  });  
 
 
   const handleFormSubmit = async (e)  =>{
@@ -100,15 +100,6 @@ return(
               </div>
           </div>
         </form>
-          <div>    
-            <p> Torneo: {torneos.name} - {torneos.sport}</p>
-            {listTorneos && listTorneos.map(item =>
-              <li key={item.id}>
-                {item.name}
-                {item.sport}
-              </li>
-              )}
-          </div>
     </div>
   </Fragment>
 );} 
