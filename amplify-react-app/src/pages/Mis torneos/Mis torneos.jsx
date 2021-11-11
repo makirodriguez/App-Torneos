@@ -1,10 +1,12 @@
 import { useState, useEffect, Fragment } from 'react';
 import {API} from 'aws-amplify';
 import * as queries from '../../graphql/queries';
+import * as mutations from '../../graphql/mutations';
 
 const MisTorneos = () => {
 
     const [listTorneos, setListTorneos] = useState([]);
+ 
     useEffect(() =>{
         async function getAllTorneos(){
             const allTorneos = await API.graphql({query: queries.listTorneos});
@@ -12,6 +14,16 @@ const MisTorneos = () => {
         }
         getAllTorneos();
     });
+
+    const confirmacionDelete = async (id) => {
+          if (window.confirm("¿Realmente queres borrar el torneo?")) {
+        const DeleteTorneoInput={
+            id: id.target.value
+        }
+        await API.graphql({query: mutations.deleteTorneo, variables: {input: DeleteTorneoInput}});
+        }     
+    }
+
 
     return (
         <Fragment>
@@ -32,7 +44,7 @@ const MisTorneos = () => {
                                     <h1>Fecha de inicio: {item.startDate}</h1><br></br>
                                     <h1>Fecha de fin: {item.endDate}</h1><br></br>
                                     <h1>Descripción: {item.description}</h1><br></br><br></br>
-                                    <button className="btn btn-primary btn-lg">Modificar</button> <button className="btn btn-danger btn-lg">Eliminar</button>
+                                    <button className="btn btn-primary btn-lg">Modificar</button> <button className="btn btn-danger btn-lg" value={item.id} onClick={confirmacionDelete}>Eliminar</button>
                                 </p>
                             </div>
                         </div>
