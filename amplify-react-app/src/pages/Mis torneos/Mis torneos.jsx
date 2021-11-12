@@ -2,6 +2,7 @@ import { useState, useEffect, Fragment } from 'react';
 import {API} from 'aws-amplify';
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
+import swal from 'sweetalert';
 
 const MisTorneos = () => {
 
@@ -16,12 +17,24 @@ const MisTorneos = () => {
     });
 
     const confirmacionDelete = async (id) => {
-          if (window.confirm("¿Realmente queres borrar el torneo?")) {
-        const DeleteTorneoInput={
-            id: id.target.value
-        }
-        await API.graphql({query: mutations.deleteTorneo, variables: {input: DeleteTorneoInput}});
-        }     
+          swal({
+              title:"¿Está seguro que desea eliminar el torneo?",
+              text:"Confirme la acción",
+              icon:"warning",
+              buttons: ["No", "Si"]
+          }).then(respuesta=>{
+                if(respuesta){
+                  swal({
+                    title:"Torneo eliminado con éxito",
+                    icon:"success",
+                    button:"Aceptar",
+                  })
+                    const DeleteTorneoInput={
+                        id: id.target.value
+                    }
+                    API.graphql({query: mutations.deleteTorneo, variables: {input: DeleteTorneoInput}});
+                }
+          })
     }
 
 
