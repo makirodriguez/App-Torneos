@@ -4,7 +4,7 @@ import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
 
 
-const Torneo = () => {
+const CrearTorneo = () => {
 
   const [torneos, setTorneos] = useState({
     name: '',
@@ -104,7 +104,7 @@ return(
   </Fragment>
 );} 
 
-export default Torneo;
+export default CrearTorneo;
     
 
 

@@ -2,29 +2,55 @@ import {AmplifySignOut} from '@aws-amplify/ui-react';
 import { Link } from "react-router-dom";
 const Header = () => {
     return (
-        <div class="p-3 bg-dark text-white">
+        <div class="bg-dark text-white">
             <div class="container">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"></svg>
-                    </a>
-            
-                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><Link to="/" class="nav-link px-2 text-white">Home</Link></li>
-                        <li><Link to="/torneos" class="nav-link px-2 text-white">Torneos</Link></li>
-                        <li><Link to="/mis-torneos" class="nav-link px-2 text-white">Mis Torneos</Link></li>
-                        <li><Link to="/perfil" class="nav-link px-2 text-white">Perfil</Link></li>
-                        <li><Link to="#" class="nav-link px-2 text-white">FAQs</Link></li>
-                    </ul>
-            
-                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                        <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search"></input>
-                    </form>
-            
-                    <div class="text-end">
-                        <AmplifySignOut />
-                    </div> 
-                </div>
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white justify-content-between">
+                        <span class="navbar-brand mb-0 h1">
+                            <img src="/favicon-32x32.png" width="30" height="30" class="d-inline-block align-top" alt=""></img>
+                            TorneosApp
+                        </span>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/perfil">Perfil</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="Torneos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Torneos
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="Torneos">
+                                        <a class="dropdown-item" href="/crear-torneo">Crear torneo</a>
+                                        <a class="dropdown-item" href="/mis-torneos">Mis torneos</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="Equipos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Equipos
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="Equipos">
+                                        <a class="dropdown-item" href="/crear-equipo">Crear equipo</a>
+                                        <a class="dropdown-item" href="/mis-equipos">Mis equipos</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/">FAQS</a>
+                                </li>
+                            </ul>
+                            <form class="form px-2 w-75 d-flex">
+                                <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Buscar"></input>
+                                <button class="btn btn-outline-success mt-2 mx-2 h-25 d-inline-block" type="submit">Buscar</button>
+                            </form>
+                            <div class="text-end">
+                                <AmplifySignOut />
+                            </div>
+                        </div> 
+                    </nav>
             </div>
         </div>
     );

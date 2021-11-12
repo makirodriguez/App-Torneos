@@ -4,9 +4,11 @@ import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
 import Header  from './components/Header/Header';
 import Home from './pages/Home/Home';
-import Torneos from './pages/Torneos/Torneos';
+import CrearTorneo from './pages/Crear Torneo/Crear Torneo';
 import Perfil from './pages/Perfil/Perfil';
 import MisTorneos from './pages/Mis torneos/Mis torneos';
+import MisEquipos from './pages/Mis equipos/Mis equipos';
+import CrearEquipo from './pages/Crear equipo/Crear equipo';
 import history from "./helpers/history";
 import {withAuthenticator} from '@aws-amplify/ui-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -35,9 +37,11 @@ function App() {
         <div>
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/torneos" exact component={Torneos} />
+            <Route path="/crear-torneo" exact component={CrearTorneo} />
             <Route path="/perfil" exact component={Perfil} />
             <Route path="/mis-torneos" exact component={MisTorneos} />
+            <Route path="/crear-equipo" exact component={CrearEquipo} />
+            <Route path="/mis-equipos" exact component={MisEquipos} />
             <Route path="*">
               <Redirect to="/" />
             </Route>
