@@ -10,6 +10,15 @@ export const  MisTorneos =() =>{
 
        const [listTorneos, setListTorneos] = useState([]);
        const [estadoModal, cambiarEstadoModal] = useState(false);
+       const [torneos, setTorneos] = useState({
+        id: '',
+        name: '',
+        sport: '',
+        startDate: '',
+        endDate: '',
+        description: ''
+      });
+    
     
     useEffect(() =>{
         async function getAllTorneos(){
@@ -20,7 +29,9 @@ export const  MisTorneos =() =>{
        
     });
 
+ 
     const confirmacionDelete = async (id) => {
+        
           if (window.confirm("¿Realmente queres borrar el torneo?")) {
         const DeleteTorneoInput={
             id: id.target.value
@@ -29,15 +40,25 @@ export const  MisTorneos =() =>{
         }     
     }
 
-    const confirmacionModify = async (id) => {
-        
-      const UpdateTorneoInput={
-          id: id.target.value
+    const handleInputChange = (e) =>{
+        setTorneos({...torneos, [e.target.name]: e.target.value})
+    
       }
-      await API.graphql({query: mutations.updateTorneo, variables: {input: UpdateTorneoInput}});
+
+     
+    const confirmacionModify = async (id) => {
+       const UpdateTorneoInput={
+        id: id,
+        name: torneos.name,
+        sport: torneos.sport,
+        startDate: torneos.startDate,
+        endDate: torneos.endDate,
+        description: torneos.description
+      }
+      await API.graphql({query: mutations.updateTorneo, variables: {input: UpdateTorneoInput}}); 
       
-  }
-  
+  }  
+
 
     return (
         <Fragment>
@@ -51,7 +72,7 @@ export const  MisTorneos =() =>{
                        
                           <div class="container-fluid col-md-5 rounded bg-white mt-4 mb-5">
                             <div class="row">
-                                <p key={item.id}>
+                                <p key={item.id} >
                                     <h1>Nombre del torneo</h1>
                                     <h2>{item.name}</h2><br></br>
                                     <h1>Deporte</h1>
@@ -59,10 +80,8 @@ export const  MisTorneos =() =>{
                                     <h1>Fecha de inicio: {item.startDate}</h1><br></br>
                                     <h1>Fecha de fin: {item.endDate}</h1><br></br>
                                     <h1>Descripción: {item.description}</h1><br></br><br></br>
-                                    {/* <button className="btn btn-primary btn-lg btn-abrir-popup" id="btn-abrir-popup"  onClick={confirmacionModify}>Modificar</button> */}
-                                    <ContenedorBotones>
-                                        <button className="btn btn-primary btn-lg" onClick={() => cambiarEstadoModal(!estadoModal)}>Modificar</button>
-                                    </ContenedorBotones>
+                                  
+                                    <button className="btn btn-primary btn-lg" onClick={() => cambiarEstadoModal(!estadoModal)}>Modificar</button>
                                     <button className="btn btn-danger btn-lg" value={item.id} onClick={confirmacionDelete}>Eliminar</button>
                                 </p>
                             </div> 
@@ -74,6 +93,7 @@ export const  MisTorneos =() =>{
                                 mostrarOverlay={true}
                                 posicionModal={'center'}
                                 padding={'20px'}
+                                key={item.id}
                             >
                                 <Contenido>
                                 
@@ -84,18 +104,18 @@ export const  MisTorneos =() =>{
                                         placeholder="Ingrese el nombre del torneo"  
                                         type="text" 
                                         name="name" 
-                                        value={item.name}/>
+                                        onChange={handleInputChange}/>
                                     </div>  
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <div class="col-md">
                                         <label class="labels">Nombre del deporte</label>
                                         <input className="form-control"
-                                        placeholder="Ingrese el deporte" 
+                                        placeholder={item.sport} 
                                         type="text" 
                                         name="sport" 
-                                        value={item.sport}
-                                        /> 
+                                        //value={item.sport}
+                                        onChange={handleInputChange}/> 
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -105,16 +125,16 @@ export const  MisTorneos =() =>{
                                     <input className="form-control" 
                                     type="date" 
                                     name="startDate" 
-                                    value={item.startDate}
-                                    />
+                                    //value={item.startDate}
+                                    onChange={handleInputChange}/>
                                 </div>
                                 <div class="col-md">
                                         <label class="labels">Fecha de finalización del torneo</label>
                                         <input className="form-control" 
                                         type="date" 
                                         name="endDate" 
-                                        value={item.endDate}
-                                        /> 
+                                        //value={item.endDate}
+                                        onChange={handleInputChange}/> 
                                     </div>
                                 </div>
                             </div>    
@@ -125,10 +145,11 @@ export const  MisTorneos =() =>{
                                     placeholder="Ingrese la descripcion"
                                     type="text" 
                                     name="description" 
-                                    value={item.description}/> 
+                                    //value={item.description}
+                                    onChange={handleInputChange}/> 
                                 </div>
                             </div>
-                                    <Boton onClick={() => cambiarEstadoModal(!estadoModal)}>Guardar cambios</Boton>
+                                    <Boton  onClick={() => {cambiarEstadoModal(!estadoModal); confirmacionModify(item.id)}}>Guardar cambios</Boton>
                                 </Contenido>
                             </Modal>
                             
@@ -147,13 +168,13 @@ export const  MisTorneos =() =>{
  
 export default MisTorneos;
 
-const ContenedorBotones = styled.div`
+/* const ContenedorBotones = styled.div`
 	padding: 40px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: 20px;
-`;
+`; */
 
 const Boton = styled.button`
 	display: block;
