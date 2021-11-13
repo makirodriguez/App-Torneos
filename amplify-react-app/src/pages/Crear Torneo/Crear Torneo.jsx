@@ -3,6 +3,7 @@ import {API} from 'aws-amplify';
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
 import swal from 'sweetalert';
+import jQuery, * as $  from 'jquery';
 
 const CrearTorneo = () => {
 
@@ -33,13 +34,24 @@ const CrearTorneo = () => {
       endDate: torneos.endDate,
       description: torneos.description
     } 
-    swal({
-      title:"Torneo creado con éxito",
-      icon:"success",
-      button:"Aceptar"
-  })
-    await API.graphql({query: mutations.createTorneo, variables: {input: createTorneoInput}});
+    
+    await API.graphql({query: mutations.createTorneo, variables: {input: createTorneoInput}});   
   }
+
+ /*  const crearTorneo = ()=>{
+    jQuery(function(){
+      swal({
+        title:"Torneo creado con éxito",
+        icon:"success",
+        button:"Aceptar",
+        timer:"5000"
+    }, 
+    function(){
+      window.location.href = "/mis-torneos";
+    })
+    })
+
+  } */
 
 
   const handleInputChange = (e) =>{
@@ -100,14 +112,18 @@ return(
                   onChange={handleInputChange}/> 
                 </div>
               </div>
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <button className="btn btn-dark">Crear torneo</button>
-              </div>
           </div>
+          <div class="d-flex justify-content-center align-items-center mb-3">
+                <button className="btn btn-dark"  >Crear torneo</button>
+        </div>
         </form>
+      
+              
     </div>
   </Fragment>
-);} 
+);
+
+} 
 
 export default CrearTorneo;
     
