@@ -2,7 +2,7 @@ import { useState, useEffect, Fragment } from 'react';
 import {API} from 'aws-amplify';
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
-
+import swal from 'sweetalert';
 
 const CrearTorneo = () => {
 
@@ -33,6 +33,11 @@ const CrearTorneo = () => {
       endDate: torneos.endDate,
       description: torneos.description
     } 
+    swal({
+      title:"Torneo creado con éxito",
+      icon:"success",
+      button:"Aceptar"
+  })
     await API.graphql({query: mutations.createTorneo, variables: {input: createTorneoInput}});
   }
 
