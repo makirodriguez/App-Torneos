@@ -2,12 +2,48 @@ import { useState, useEffect, Fragment } from 'react';
 import {API} from 'aws-amplify';
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
-
+import cancha from '../../imagenes/imagen-cancha.jpg'
+import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components';
 import Modal from './Modal'
+import * as React from 'react';
+import { styled as styled2 } from '@mui/material/styles';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Collapse from '@mui/material/Collapse';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import { red, green } from '@mui/material/colors';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import { FavoriteIcon as FavoriteIcon2 } from '@mui/icons-material/Favorite';
+import NavigationIcon from '@mui/icons-material/Navigation';
+import { pink } from '@mui/material/colors';
+
+const ExpandMore = styled2((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
 
 export const  MisTorneos =() =>{
 
+       const [expanded, setExpanded] = React.useState(false);
        const [listTorneos, setListTorneos] = useState([]);
        const [estadoModal, cambiarEstadoModal] = useState(false);
        const [torneos, setTorneos] = useState({
@@ -18,6 +54,7 @@ export const  MisTorneos =() =>{
         endDate: '',
         description: ''
       });
+      const id='';
     
     
     useEffect(() =>{
@@ -29,12 +66,14 @@ export const  MisTorneos =() =>{
        
     });
 
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+      };
  
     const confirmacionDelete = async (id) => {
-        
           if (window.confirm("¿Realmente queres borrar el torneo?")) {
         const DeleteTorneoInput={
-            id: id.target.value
+            id: id
         }
         await API.graphql({query: mutations.deleteTorneo, variables: {input: DeleteTorneoInput}});
         }     
@@ -62,28 +101,61 @@ export const  MisTorneos =() =>{
 
     return (
         <Fragment>
-            <div class="container rounded bg-dark mt-5 mb-5"><br></br>
-                <div class="container-fluid col-md-4 rounded bg-white mb-5">
-                    <div class="row">
-                        <h1 class ="display-1">Mis torneos</h1>
-                    </div>
-                </div>
+            <div class="container rounded mt-5 mb-5"><br></br>
                 {listTorneos && listTorneos.map(item => 
                        
-                          <div class="container-fluid col-md-5 rounded bg-white mt-4 mb-5">
-                            <div class="row">
-                                <p key={item.id} >
-                                    <h1>Nombre del torneo</h1>
-                                    <h2>{item.name}</h2><br></br>
-                                    <h1>Deporte</h1>
-                                    <h2>{item.sport}</h2><br></br>
-                                    <h1>Fecha de inicio: {item.startDate}</h1><br></br>
-                                    <h1>Fecha de fin: {item.endDate}</h1><br></br>
-                                    <h1>Descripción: {item.description}</h1><br></br><br></br>
-                                  
-                                    <button className="btn btn-primary btn-lg" onClick={() => cambiarEstadoModal(!estadoModal)}>Modificar</button>
-                                    <button className="btn btn-danger btn-lg" value={item.id} onClick={confirmacionDelete}>Eliminar</button>
-                                </p>
+                    <div class="container-fluid row-md-5 rounded mt-4 mb-5">
+                        <div>
+                        <Card sx={{ maxWidth: 345 }}>
+                        <CardHeader
+                            avatar={
+                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                F
+                            </Avatar>
+                            }
+                            action={
+                            <IconButton aria-label="share">
+                            <ShareIcon />
+                            </IconButton>
+                            }
+                            title={item.name}
+                        />
+                        <CardMedia
+                            component="img"
+                            height="194"
+                            image={cancha}
+                        />
+                        <CardContent>
+                            <Typography variant="body2" color="text.secondary">
+                                Fecha de inicio: {item.startDate} <br></br>
+                                Fecha de fin: {item.endDate}
+                            </Typography>
+                        </CardContent>
+                        <CardActions disableSpacing>
+                        <Fab size="small" sx={{ bgcolor: red[500] }} color="primary" aria-label="delete">
+                        <DeleteIcon  onClick={confirmacionDelete} />
+                        </Fab>&nbsp;&nbsp;
+                        <Fab size="small" sx={{ bgcolor: green[500] }} color="primary" aria-label="edit">
+                        <EditIcon onClick={() => cambiarEstadoModal(!estadoModal)}/>
+                        </Fab>
+                            <ExpandMore
+                            expand={expanded}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                            aria-label="show more"
+                            >
+                            <ExpandMoreIcon />
+                            </ExpandMore>
+                        </CardActions>
+                        <Collapse in={expanded} timeout="auto" unmountOnExit>
+                            <CardContent>
+                            <Typography paragraph>Descripcion:</Typography>
+                            <Typography paragraph>
+                                {item.description}
+                            </Typography>
+                            </CardContent>
+                        </Collapse>
+                        </Card>
                             </div> 
                             <Modal
                                 estado={estadoModal}
