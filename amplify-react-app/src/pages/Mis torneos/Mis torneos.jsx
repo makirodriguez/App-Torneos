@@ -18,17 +18,13 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red, green } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
-import { FavoriteIcon as FavoriteIcon2 } from '@mui/icons-material/Favorite';
-import NavigationIcon from '@mui/icons-material/Navigation';
-import { pink } from '@mui/material/colors';
+
+
+
 
 const ExpandMore = styled2((props) => {
     const { expand, ...other } = props;
@@ -71,6 +67,7 @@ export const  MisTorneos =() =>{
       };
  
     const confirmacionDelete = async (id) => {
+        console.log(id)
           if (window.confirm("¿Realmente queres borrar el torneo?")) {
         const DeleteTorneoInput={
             id: id
@@ -132,9 +129,12 @@ export const  MisTorneos =() =>{
                             </Typography>
                         </CardContent>
                         <CardActions disableSpacing>
-                        <Fab size="small" sx={{ bgcolor: red[500] }} color="primary" aria-label="delete">
-                        <DeleteIcon  onClick={confirmacionDelete} />
-                        </Fab>&nbsp;&nbsp;
+                        
+                        <Fab size="small" sx={{ bgcolor: red[500] }} color="primary" aria-label="delete" >
+                        <DeleteIcon onClick={() => confirmacionDelete(item.id)} />
+                        </Fab>
+                      
+                        &nbsp;&nbsp;
                         <Fab size="small" sx={{ bgcolor: green[500] }} color="primary" aria-label="edit">
                         <EditIcon onClick={() => cambiarEstadoModal(!estadoModal)}/>
                         </Fab>
