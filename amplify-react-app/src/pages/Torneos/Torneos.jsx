@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from 'react';
-import {API} from 'aws-amplify';
+import {API, Auth} from 'aws-amplify';
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,18 +12,23 @@ const Torneo = () => {
     sport: '',
     startDate: '',
     endDate: '',
-    description: ''
+    description: '',
+    userCreator:'',
+    teams:''
   });
+  const [userCreator, setUserCreator] = useState('');
 
-   const [listTorneos, setListTorneos] = useState([]);
+  const [listTorneos, setListTorneos] = useState([]);
   useEffect(() =>{
       async function getAllTorneos(){
         const allTorneos = await API.graphql({query: queries.listTorneos});
         setListTorneos(allTorneos.data.listTorneos.items);  
       }
     getAllTorneos();
+    Auth.currentAuthenticatedUser().then(user => {
+      setUserCreator(user.username);
+    })
   });  
-
 
   const handleFormSubmit = async (e)  =>{
 
@@ -32,7 +37,10 @@ const Torneo = () => {
       sport: torneos.sport,
       startDate: torneos.startDate,
       endDate: torneos.endDate,
-      description: torneos.description
+      description: torneos.description,
+      userCreator: userCreator,
+      teams:''
+
     } 
     await API.graphql({query: mutations.createTorneo, variables: {input: CreateTorneoInput}});
   }
@@ -40,7 +48,7 @@ const Torneo = () => {
 
   const handleInputChange = (e) =>{
     setTorneos({...torneos, [e.target.name]: e.target.value})
-    console.log(torneos)
+    
   }
 
 return(

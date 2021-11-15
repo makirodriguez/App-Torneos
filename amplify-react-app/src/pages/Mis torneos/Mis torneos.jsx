@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from 'react';
-import {API} from 'aws-amplify';
+import {API, Auth} from 'aws-amplify';
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
 
@@ -10,13 +10,16 @@ export const  MisTorneos =() =>{
 
        const [listTorneos, setListTorneos] = useState([]);
        const [estadoModal, cambiarEstadoModal] = useState(false);
+       const [userCreator, setUserCreator] = useState('');
        const [torneos, setTorneos] = useState({
         id: '',
         name: '',
         sport: '',
         startDate: '',
         endDate: '',
-        description: ''
+        description: '',
+        userCreator:'',
+        teams:''
       });
     
     
@@ -26,13 +29,16 @@ export const  MisTorneos =() =>{
             setListTorneos(allTorneos.data.listTorneos.items);  
         }
         getAllTorneos();
+        Auth.currentAuthenticatedUser().then(user => {
+            setUserCreator(user.username);
+          })
        
     });
 
  
     const confirmacionDelete = async (id) => {
         
-          if (window.confirm("¿Realmente queres borrar el torneo?")) {
+        if (window.confirm("¿Realmente queres borrar el torneo?")) {
         const DeleteTorneoInput={
             id: id.target.value
         }
@@ -53,7 +59,9 @@ export const  MisTorneos =() =>{
         sport: torneos.sport,
         startDate: torneos.startDate,
         endDate: torneos.endDate,
-        description: torneos.description
+        description: torneos.description,
+        userCreator: userCreator,
+        teams:''
       }
       await API.graphql({query: mutations.updateTorneo, variables: {input: UpdateTorneoInput}}); 
       
@@ -68,7 +76,9 @@ export const  MisTorneos =() =>{
                         <h1 class ="display-1">Mis torneos</h1>
                     </div>
                 </div>
-                {listTorneos && listTorneos.map(item => 
+                {listTorneos && listTorneos.map(item => {
+                    if(item.userCreator == userCreator){
+                        return(
                        
                           <div class="container-fluid col-md-5 rounded bg-white mt-4 mb-5">
                             <div class="row">
@@ -157,7 +167,7 @@ export const  MisTorneos =() =>{
                 
                         
                 
-                )} 
+                )}})} 
                 </div>
 
   </Fragment>
