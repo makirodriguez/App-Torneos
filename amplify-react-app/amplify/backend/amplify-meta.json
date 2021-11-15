@@ -35,13 +35,17 @@
         ],
         "verificationMechanisms": [
           "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
         ]
       },
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-apptorneos-dev-15259-deployment/amplify-cfn-templates/auth/apptorneos9fda9476-cloudformation-template.yml",
         "logicalId": "authapptorneos9fda9476"
       },
-      "lastPushTimeStamp": "2021-10-22T21:42:03.880Z",
+      "lastPushTimeStamp": "2021-11-15T16:08:46.129Z",
       "output": {
         "UserPoolId": "eu-west-2_w0HEhz0nk",
         "AppClientIDWeb": "6n5li7ibaiaptp1d5l9irb8tt4",
@@ -55,30 +59,28 @@
     }
   },
   "api": {
-    "torneosapi": {
+    "apptorneos": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
         "authConfig": {
           "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 365,
-              "description": "torneos api key"
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authapptorneos9fda9476"
             }
           },
           "additionalAuthenticationProviders": []
         },
-        "GraphQLAPIIdOutput": "zvn66d4q4jd5lhclmuluxfgkze",
-        "GraphQLAPIEndpointOutput": "https://xtkalw63wja2zjqp7f7wkqunw4.appsync-api.eu-west-2.amazonaws.com/graphql",
-        "GraphQLAPIKeyOutput": "da2-4m4l5jovlvcatedpvfmsj4tnpm"
+        "GraphQLAPIIdOutput": "vy6zkgvyyndibklpc2vwl5gghy",
+        "GraphQLAPIEndpointOutput": "https://dq6qvxbrvjhtbna5tklfb3r3ju.appsync-api.eu-west-2.amazonaws.com/graphql"
       },
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-apptorneos-dev-15259-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-        "logicalId": "apitorneosapi"
+        "logicalId": "apiapptorneos"
       },
-      "lastPushTimeStamp": "2021-10-22T21:42:03.881Z",
-      "lastPushDirHash": "KBU7XGIcryxS0UV4HDhX0rCwj74="
+      "lastPushTimeStamp": "2021-11-15T16:10:52.749Z",
+      "lastPushDirHash": "OZ8lUb6Sc5CCE0/JIvPsSYXG+FA="
     }
   }
 }

@@ -1,0 +1,26 @@
+type Torneo @model {
+  id: ID!
+  name: String!
+  sport: String
+  startDate: String
+  endDate: String
+  description: String
+  userCreator: String
+  teams: [String]
+}
+
+type Profile @model{
+  id: ID!
+  name: String
+  lastName: String
+  number: String
+  email: String!
+  country: String
+  province: String
+}
+
+type Team @model {
+  id: ID!
+  name: String!
+  users: [String]
+}

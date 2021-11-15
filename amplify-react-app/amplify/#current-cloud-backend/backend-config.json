@@ -27,16 +27,15 @@
     }
   },
   "api": {
-    "torneosapi": {
+    "apptorneos": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
         "authConfig": {
           "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 365,
-              "description": "torneos api key"
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authapptorneos9fda9476"
             }
           },
           "additionalAuthenticationProviders": []

@@ -1,0 +1,13 @@
+{
+    "AppSyncApiName": "apptorneos",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authapptorneos9fda9476",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "S3DeploymentBucket": "amplify-apptorneos-dev-15259-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/5cf82b66612fe2aa3d152e78b06a0f85a043847a"
+}

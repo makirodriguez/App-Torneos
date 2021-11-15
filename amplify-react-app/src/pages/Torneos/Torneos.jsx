@@ -2,6 +2,7 @@ import { useState, useEffect, Fragment } from 'react';
 import {API} from 'aws-amplify';
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const Torneo = () => {
@@ -26,19 +27,20 @@ const Torneo = () => {
 
   const handleFormSubmit = async (e)  =>{
 
-     const createTorneoInput = {
+     const CreateTorneoInput = {
       name: torneos.name,
       sport: torneos.sport,
       startDate: torneos.startDate,
       endDate: torneos.endDate,
       description: torneos.description
     } 
-    await API.graphql({query: mutations.createTorneo, variables: {input: createTorneoInput}});
+    await API.graphql({query: mutations.createTorneo, variables: {input: CreateTorneoInput}});
   }
 
 
   const handleInputChange = (e) =>{
     setTorneos({...torneos, [e.target.name]: e.target.value})
+    console.log(torneos)
   }
 
 return(
