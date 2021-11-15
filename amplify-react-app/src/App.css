@@ -2,11 +2,12 @@
 .App {
   text-align: center;
   position: relative;
-  background-image: url('./imagenes/fondo.jpg');
+  background-image: url("./imagenes/fondo.jpg");
   background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  color: #ff9900;
 }
 
 .App-logo {
@@ -32,7 +33,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: black;
+  color: whitesmoke;
 }
 
 :root {
@@ -53,4 +54,35 @@
     transform: rotate(360deg);
   }
 }
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.profile-button {
+  box-shadow: none;
+  border: none
+}
+
+.profile-button:hover {
+  background: #ff9900;
+}
+
+.profile-button:focus {
+  box-shadow: none
+}
+
+.profile-button:active {
+  box-shadow: none
+}
+
+.back:hover {
+  color: #ff9900;
+  cursor: pointer
+}
+
+.labels {
+  font-size: 11px
+}
+
 

@@ -46,15 +46,6 @@ export const deleteTorneo = /* GraphQL */ `
   ) {
     deleteTorneo(input: $input, condition: $condition) {
       id
-      name
-      sport
-      startDate
-      endDate
-      description
-      userCreator
-      teams
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -151,6 +142,7 @@ export const deleteTeam = /* GraphQL */ `
       users
       createdAt
       updatedAt
+
     }
   }
 `;
