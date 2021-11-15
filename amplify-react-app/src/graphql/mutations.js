@@ -13,6 +13,8 @@ export const createTorneo = /* GraphQL */ `
       startDate
       endDate
       description
+      userCreator
+      teams
       createdAt
       updatedAt
     }
@@ -30,6 +32,8 @@ export const updateTorneo = /* GraphQL */ `
       startDate
       endDate
       description
+      userCreator
+      teams
       createdAt
       updatedAt
     }
@@ -47,6 +51,104 @@ export const deleteTorneo = /* GraphQL */ `
       startDate
       endDate
       description
+      userCreator
+      teams
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createProfile = /* GraphQL */ `
+  mutation CreateProfile(
+    $input: CreateProfileInput!
+    $condition: ModelProfileConditionInput
+  ) {
+    createProfile(input: $input, condition: $condition) {
+      id
+      name
+      lastName
+      number
+      email
+      country
+      province
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateProfile = /* GraphQL */ `
+  mutation UpdateProfile(
+    $input: UpdateProfileInput!
+    $condition: ModelProfileConditionInput
+  ) {
+    updateProfile(input: $input, condition: $condition) {
+      id
+      name
+      lastName
+      number
+      email
+      country
+      province
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteProfile = /* GraphQL */ `
+  mutation DeleteProfile(
+    $input: DeleteProfileInput!
+    $condition: ModelProfileConditionInput
+  ) {
+    deleteProfile(input: $input, condition: $condition) {
+      id
+      name
+      lastName
+      number
+      email
+      country
+      province
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createTeam = /* GraphQL */ `
+  mutation CreateTeam(
+    $input: CreateTeamInput!
+    $condition: ModelTeamConditionInput
+  ) {
+    createTeam(input: $input, condition: $condition) {
+      id
+      name
+      users
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateTeam = /* GraphQL */ `
+  mutation UpdateTeam(
+    $input: UpdateTeamInput!
+    $condition: ModelTeamConditionInput
+  ) {
+    updateTeam(input: $input, condition: $condition) {
+      id
+      name
+      users
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteTeam = /* GraphQL */ `
+  mutation DeleteTeam(
+    $input: DeleteTeamInput!
+    $condition: ModelTeamConditionInput
+  ) {
+    deleteTeam(input: $input, condition: $condition) {
+      id
+      name
+      users
       createdAt
       updatedAt
     }

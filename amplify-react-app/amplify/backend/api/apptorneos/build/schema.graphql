@@ -1,0 +1,306 @@
+type Torneo {
+  id: ID!
+  name: String!
+  sport: String
+  startDate: String
+  endDate: String
+  description: String
+  userCreator: String
+  teams: [String]
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Profile {
+  id: ID!
+  name: String
+  lastName: String
+  number: String
+  email: String!
+  country: String
+  province: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Team {
+  id: ID!
+  name: String!
+  users: [String]
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelTorneoConnection {
+  items: [Torneo!]!
+  nextToken: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelTorneoFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  sport: ModelStringInput
+  startDate: ModelStringInput
+  endDate: ModelStringInput
+  description: ModelStringInput
+  userCreator: ModelStringInput
+  teams: ModelStringInput
+  and: [ModelTorneoFilterInput]
+  or: [ModelTorneoFilterInput]
+  not: ModelTorneoFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  getTorneo(id: ID!): Torneo
+  listTorneos(filter: ModelTorneoFilterInput, limit: Int, nextToken: String): ModelTorneoConnection
+  getProfile(id: ID!): Profile
+  listProfiles(filter: ModelProfileFilterInput, limit: Int, nextToken: String): ModelProfileConnection
+  getTeam(id: ID!): Team
+  listTeams(filter: ModelTeamFilterInput, limit: Int, nextToken: String): ModelTeamConnection
+}
+
+input CreateTorneoInput {
+  id: ID
+  name: String!
+  sport: String
+  startDate: String
+  endDate: String
+  description: String
+  userCreator: String
+  teams: [String]
+}
+
+input UpdateTorneoInput {
+  id: ID!
+  name: String
+  sport: String
+  startDate: String
+  endDate: String
+  description: String
+  userCreator: String
+  teams: [String]
+}
+
+input DeleteTorneoInput {
+  id: ID!
+}
+
+type Mutation {
+  createTorneo(input: CreateTorneoInput!, condition: ModelTorneoConditionInput): Torneo
+  updateTorneo(input: UpdateTorneoInput!, condition: ModelTorneoConditionInput): Torneo
+  deleteTorneo(input: DeleteTorneoInput!, condition: ModelTorneoConditionInput): Torneo
+  createProfile(input: CreateProfileInput!, condition: ModelProfileConditionInput): Profile
+  updateProfile(input: UpdateProfileInput!, condition: ModelProfileConditionInput): Profile
+  deleteProfile(input: DeleteProfileInput!, condition: ModelProfileConditionInput): Profile
+  createTeam(input: CreateTeamInput!, condition: ModelTeamConditionInput): Team
+  updateTeam(input: UpdateTeamInput!, condition: ModelTeamConditionInput): Team
+  deleteTeam(input: DeleteTeamInput!, condition: ModelTeamConditionInput): Team
+}
+
+input ModelTorneoConditionInput {
+  name: ModelStringInput
+  sport: ModelStringInput
+  startDate: ModelStringInput
+  endDate: ModelStringInput
+  description: ModelStringInput
+  userCreator: ModelStringInput
+  teams: ModelStringInput
+  and: [ModelTorneoConditionInput]
+  or: [ModelTorneoConditionInput]
+  not: ModelTorneoConditionInput
+}
+
+type Subscription {
+  onCreateTorneo: Torneo @aws_subscribe(mutations: ["createTorneo"])
+  onUpdateTorneo: Torneo @aws_subscribe(mutations: ["updateTorneo"])
+  onDeleteTorneo: Torneo @aws_subscribe(mutations: ["deleteTorneo"])
+  onCreateProfile: Profile @aws_subscribe(mutations: ["createProfile"])
+  onUpdateProfile: Profile @aws_subscribe(mutations: ["updateProfile"])
+  onDeleteProfile: Profile @aws_subscribe(mutations: ["deleteProfile"])
+  onCreateTeam: Team @aws_subscribe(mutations: ["createTeam"])
+  onUpdateTeam: Team @aws_subscribe(mutations: ["updateTeam"])
+  onDeleteTeam: Team @aws_subscribe(mutations: ["deleteTeam"])
+}
+
+type ModelProfileConnection {
+  items: [Profile!]!
+  nextToken: String
+}
+
+input ModelProfileFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  lastName: ModelStringInput
+  number: ModelStringInput
+  email: ModelStringInput
+  country: ModelStringInput
+  province: ModelStringInput
+  and: [ModelProfileFilterInput]
+  or: [ModelProfileFilterInput]
+  not: ModelProfileFilterInput
+}
+
+input CreateProfileInput {
+  id: ID
+  name: String
+  lastName: String
+  number: String
+  email: String!
+  country: String
+  province: String
+}
+
+input UpdateProfileInput {
+  id: ID!
+  name: String
+  lastName: String
+  number: String
+  email: String
+  country: String
+  province: String
+}
+
+input DeleteProfileInput {
+  id: ID!
+}
+
+input ModelProfileConditionInput {
+  name: ModelStringInput
+  lastName: ModelStringInput
+  number: ModelStringInput
+  email: ModelStringInput
+  country: ModelStringInput
+  province: ModelStringInput
+  and: [ModelProfileConditionInput]
+  or: [ModelProfileConditionInput]
+  not: ModelProfileConditionInput
+}
+
+type ModelTeamConnection {
+  items: [Team!]!
+  nextToken: String
+}
+
+input ModelTeamFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  users: ModelStringInput
+  and: [ModelTeamFilterInput]
+  or: [ModelTeamFilterInput]
+  not: ModelTeamFilterInput
+}
+
+input CreateTeamInput {
+  id: ID
+  name: String!
+  users: [String]
+}
+
+input UpdateTeamInput {
+  id: ID!
+  name: String
+  users: [String]
+}
+
+input DeleteTeamInput {
+  id: ID!
+}
+
+input ModelTeamConditionInput {
+  name: ModelStringInput
+  users: ModelStringInput
+  and: [ModelTeamConditionInput]
+  or: [ModelTeamConditionInput]
+  not: ModelTeamConditionInput
+}

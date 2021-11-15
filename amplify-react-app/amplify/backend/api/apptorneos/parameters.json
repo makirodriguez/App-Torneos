@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "apptorneos",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authapptorneos9fda9476",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

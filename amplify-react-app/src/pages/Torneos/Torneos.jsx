@@ -27,19 +27,20 @@ const Torneo = () => {
 
   const handleFormSubmit = async (e)  =>{
 
-     const createTorneoInput = {
+     const CreateTorneoInput = {
       name: torneos.name,
       sport: torneos.sport,
       startDate: torneos.startDate,
       endDate: torneos.endDate,
       description: torneos.description
     } 
-    await API.graphql({query: mutations.createTorneo, variables: {input: createTorneoInput}});
+    await API.graphql({query: mutations.createTorneo, variables: {input: CreateTorneoInput}});
   }
 
 
   const handleInputChange = (e) =>{
     setTorneos({...torneos, [e.target.name]: e.target.value})
+    console.log(torneos)
   }
 
   return(
@@ -95,7 +96,7 @@ const Torneo = () => {
           {listTorneos && listTorneos.map(item =>
             <li key={item.id}>
               {item.name}
-              {item. sport}
+              {item.sport}
             </li>
           )}
         </div>
