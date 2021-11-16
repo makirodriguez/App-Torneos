@@ -4,20 +4,16 @@ import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
 import Header  from './components/Header/Header';
 import Home from './pages/Home/Home';
-import Torneos from './pages/CrearTorneo/CrearTorneo';
 import Perfil from './pages/Perfil/Perfil';
-import MisTorneos from './pages/Mis torneos/Mis torneos';
+import MisTorneos from './pages/MisTorneos/Mis torneos';
 import history from "./helpers/history";
 import {withAuthenticator} from '@aws-amplify/ui-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Analytics, Auth} from 'aws-amplify';
+import {Auth} from 'aws-amplify';
 import React, { useState, useEffect } from 'react';
-import MisEquipos from './pages/Mis equipos/Mis equipos';
+import MisEquipos from './pages/MisEquipos/Mis equipos';
 import CrearEquipo from './pages/CrearEquipo/CrearEquipo';
 import CrearTorneo from './pages/CrearTorneo/CrearTorneo';
-
-
-
 
 
 Amplify.configure(awsconfig);
