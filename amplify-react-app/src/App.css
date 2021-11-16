@@ -1,4 +1,4 @@
-
+ 
 .App {
   text-align: center;
   position: relative;
@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   color: #ff9900;
-}
+} 
 
 .App-logo {
   height: 40vmin;
@@ -85,4 +85,23 @@
   font-size: 11px
 }
 
+.tarjeta {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 10%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
 
+.create-route {
+  width: 25%;
+  flex: 0 1 50px;
+  background-color: white;
+  border: solid 1px #1c4051;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: bold;
+}

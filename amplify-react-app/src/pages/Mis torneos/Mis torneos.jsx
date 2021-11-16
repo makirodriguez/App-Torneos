@@ -22,6 +22,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Fab from '@mui/material/Fab';
 import EditIcon from '@mui/icons-material/Edit';
+import '../../App.css';
 
 
 
@@ -98,139 +99,141 @@ export const  MisTorneos =() =>{
 
     return (
         <Fragment>
-            <div class="container rounded mt-5 mb-5"><br></br>
-                {listTorneos && listTorneos.map(item => 
-                       
-                    <div class="container-fluid row-md-5 rounded mt-4 mb-5">
-                        <div>
-                        <Card sx={{ maxWidth: 345 }}>
-                        <CardHeader
-                            avatar={
-                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                F
-                            </Avatar>
-                            }
-                            action={
-                            <IconButton aria-label="share">
-                            <ShareIcon />
-                            </IconButton>
-                            }
-                            title={item.name}
-                        />
-                        <CardMedia
-                            component="img"
-                            height="194"
-                            image={cancha}
-                        />
-                        <CardContent>
-                            <Typography variant="body2" color="text.secondary">
-                                Fecha de inicio: {item.startDate} <br></br>
-                                Fecha de fin: {item.endDate}
-                            </Typography>
-                        </CardContent>
-                        <CardActions disableSpacing>
-                        
-                        <Fab size="small" sx={{ bgcolor: red[500] }} color="primary" aria-label="delete" >
-                        <DeleteIcon onClick={() => confirmacionDelete(item.id)} />
-                        </Fab>
-                      
-                        &nbsp;&nbsp;
-                        <Fab size="small" sx={{ bgcolor: green[500] }} color="primary" aria-label="edit">
-                        <EditIcon onClick={() => cambiarEstadoModal(!estadoModal)}/>
-                        </Fab>
-                            <ExpandMore
-                            expand={expanded}
-                            onClick={handleExpandClick}
-                            aria-expanded={expanded}
-                            aria-label="show more"
-                            >
-                            <ExpandMoreIcon />
-                            </ExpandMore>
-                        </CardActions>
-                        <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <div class="d-flex overflow-auto position-absolute top-50 start-50 translate-middle h-75 w-75">
+                    {listTorneos && listTorneos.map(item => 
+                        <div class="d-flex col-md-3">
+                            <div>
+                            <Card sx={{ maxWidth: 345 }}>
+                            <CardHeader
+                                avatar={
+                                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                    F
+                                </Avatar>
+                                }
+                                action={
+                                <IconButton aria-label="share">
+                                <ShareIcon />
+                                </IconButton>
+                                }
+                                title={item.name}
+                            />
+                            <CardMedia
+                                component="img"
+                                height="194"
+                                image={cancha}
+                            />
                             <CardContent>
-                            <Typography paragraph>Descripcion:</Typography>
-                            <Typography paragraph>
-                                {item.description}
-                            </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Deporte: {item.sport} <br></br>
+                                    Fecha de inicio: {item.startDate} <br></br>
+                                    Fecha de fin: {item.endDate} 
+                                </Typography>
                             </CardContent>
-                        </Collapse>
-                        </Card>
-                            </div> 
-                            <Modal
-                                estado={estadoModal}
-                                cambiarEstado={cambiarEstadoModal}
-                                titulo="Modificar torneo"
-                                mostrarHeader={true}
-                                mostrarOverlay={true}
-                                posicionModal={'center'}
-                                padding={'20px'}
-                                key={item.id}
-                            >
-                                <Contenido>
-                                
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <div class="col-md">
-                                        <label class="labels">Nombre del torneo</label>
-                                        <input  className="form-control"
-                                        placeholder="Ingrese el nombre del torneo"  
-                                        type="text" 
-                                        name="name" 
-                                        onChange={handleInputChange}/>
-                                    </div>  
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <div class="col-md">
-                                        <label class="labels">Nombre del deporte</label>
-                                        <input className="form-control"
-                                        placeholder={item.sport} 
-                                        type="text" 
-                                        name="sport" 
-                                        //value={item.sport}
-                                        onChange={handleInputChange}/> 
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                <div class="row">
-                                <div class="col-md">
-                                    <label class="labels">Fecha de inicio del torneo</label>
-                                    <input className="form-control" 
-                                    type="date" 
-                                    name="startDate" 
-                                    //value={item.startDate}
-                                    onChange={handleInputChange}/>
-                                </div>
-                                <div class="col-md">
-                                        <label class="labels">Fecha de finalización del torneo</label>
-                                        <input className="form-control" 
-                                        type="date" 
-                                        name="endDate" 
-                                        //value={item.endDate}
-                                        onChange={handleInputChange}/> 
-                                    </div>
-                                </div>
-                            </div>    
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="col-md">
-                                    <label class="labels">Descripción del torneo</label>
-                                    <textarea className="form-control"
-                                    placeholder="Ingrese la descripcion"
-                                    type="text" 
-                                    name="description" 
-                                    //value={item.description}
-                                    onChange={handleInputChange}/> 
-                                </div>
-                            </div>
-                                    <Boton  onClick={() => {cambiarEstadoModal(!estadoModal); confirmacionModify(item.id)}}>Guardar cambios</Boton>
-                                </Contenido>
-                            </Modal>
+                            <CardActions disableSpacing>
                             
-                             </div> 
-                
+                            <Fab size="small" sx={{ bgcolor: red[500] }} color="primary" aria-label="delete" >
+                            <DeleteIcon onClick={() => confirmacionDelete(item.id)} />
+                            </Fab>
                         
-                
-                )} 
-                </div>
+                            &nbsp;&nbsp;
+                            <Fab size="small" sx={{ bgcolor: green[500] }} color="primary" aria-label="edit">
+                            <EditIcon onClick={() => cambiarEstadoModal(!estadoModal)}/>
+                            </Fab>
+                                <ExpandMore
+                                expand={expanded}
+                                onClick={handleExpandClick}
+                                aria-expanded={expanded}
+                                aria-label="show more"
+                                >
+                                <ExpandMoreIcon />
+                                </ExpandMore>
+                            </CardActions>
+                            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                                <CardContent>
+                                <Typography paragraph>Descripcion:</Typography>
+                                <Typography paragraph>
+                                    {item.description}
+                                </Typography>
+                                </CardContent>
+                            </Collapse>
+                            </Card>
+                                </div>
+                                <Modal
+                                    estado={estadoModal}
+                                    cambiarEstado={cambiarEstadoModal}
+                                    titulo="Modificar torneo"
+                                    mostrarHeader={true}
+                                    mostrarOverlay={true}
+                                    posicionModal={'center'}
+                                    padding={'20px'}
+                                    key={item.id}
+                                >
+                                    <Contenido>
+                                    
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="col-md">
+                                            <label class="labels">Nombre del torneo</label>
+                                            <input  className="form-control"
+                                            placeholder={item.name} 
+                                            type="text" 
+                                            name="name" 
+                                            onChange={handleInputChange}/>
+                                        </div>  
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="col-md">
+                                            <label class="labels">Nombre del deporte</label>
+                                            <input className="form-control"
+                                            placeholder={item.sport} 
+                                            type="text" 
+                                            name="sport" 
+                                            //value={item.sport}
+                                            onChange={handleInputChange}/> 
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                    <div class="row">
+                                    <div class="col-md">
+                                        <label class="labels">Fecha de inicio del torneo</label>
+                                        <input className="form-control"
+                                        placeholder={item.startDate} 
+                                        type="date" 
+                                        name="startDate" 
+                                        //value={item.startDate}
+                                        onChange={handleInputChange}/>
+                                    </div>
+                                    <div class="col-md">
+                                            <label class="labels">Fecha de finalización del torneo</label>
+                                            <input className="form-control"
+                                            placeholder={item.endDate}  
+                                            type="date" 
+                                            name="endDate" 
+                                            //value={item.endDate}
+                                            onChange={handleInputChange}/> 
+                                        </div>
+                                    </div>
+                                </div>    
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="col-md">
+                                        <label class="labels">Descripción del torneo</label>
+                                        <textarea className="form-control"
+                                        placeholder={item.description}
+                                        type="text" 
+                                        name="description" 
+                                        //value={item.description}
+                                        onChange={handleInputChange}/> 
+                                    </div>
+                                </div>
+                                        <Boton  onClick={() => {cambiarEstadoModal(!estadoModal); confirmacionModify(item.id)}}>Guardar cambios</Boton>
+                                    </Contenido>
+                                </Modal>
+                                
+                                </div> 
+                    
+                            
+                    
+                    )} 
+                    </div>
 
   </Fragment>
     ); 
@@ -265,9 +268,7 @@ const Boton = styled.button`
 `;
 
 const Contenido = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	display: container;
 	h1 {
 		font-size: 42px;
 		font-weight: 700;
