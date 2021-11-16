@@ -2,8 +2,51 @@ import {AmplifySignOut} from '@aws-amplify/ui-react';
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import {API, Auth} from 'aws-amplify';
+import * as queries from '../../graphql/queries';
+import { useEffect, useState } from "react";
 
 const Header = () => {
+    const [listTorneos, setListTorneos] = useState([]);
+    const [busqueda, setBusqueda] = useState('');
+    var [array, setArrayBusqueda] = useState([]);
+    const [union, setUnion]= useState();
+    const [userCreator, setUserCreator] = useState('');
+
+    useEffect(() =>{
+        async function getAllTorneos(){
+            const allTorneos = await API.graphql({query: queries.listTorneos});
+            setListTorneos(allTorneos.data.listTorneos.items);  
+        }
+        getAllTorneos();
+        Auth.currentAuthenticatedUser().then(user => {
+            setUserCreator(user.username);
+          })
+       
+    });
+
+    const filtrar=(terminoBusqueda)=>{
+        var resultadosBusqueda=listTorneos.filter((elemento)=>{
+               if(((elemento.name.toString().toLowerCase()).includes(terminoBusqueda.toLowerCase())))
+               {
+                   return elemento;
+               }                      
+         }); 
+         setArrayBusqueda(resultadosBusqueda)
+       } 
+    
+
+   const buscador = (e) =>{
+       e.preventDefault()
+       if(!busqueda.trim()){
+           window.alert("Ingrese su busqueda")
+           return
+       }
+       filtrar(busqueda);
+     
+   }
+
+
     return (
         <div class="bg-dark">
             <div class="container">
@@ -34,8 +77,12 @@ const Header = () => {
                             <Nav.Link href="/perfil">Perfil</Nav.Link>
                             <Nav.Link href="#">FAQs</Nav.Link>
                         </Nav>
-                        <form class="form px-2 w-75 d-flex">
-                            <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Buscar"></input>
+                        <form class="form px-2 w-75 d-flex" onSubmit={buscador}>
+                            <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Buscar" className="form-control inputBuscar"
+                            name="buscador"
+                            value={busqueda}
+                            placeholder="Búsqueda por Usuario o Torneo"
+                            onChange={(e) => setBusqueda(e.target.value)}></input>
                             <button class="btn btn-outline-success mt-2 mx-2 h-25 d-inline-block" type="submit">Buscar</button>
                         </form>
                         <div class="text-end">
