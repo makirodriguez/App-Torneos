@@ -35,7 +35,6 @@ const Header = () => {
          setArrayBusqueda(resultadosBusqueda)
        } 
     
-
    const buscador = (e) =>{
        e.preventDefault()
        if(!busqueda.trim()){
@@ -45,7 +44,6 @@ const Header = () => {
        filtrar(busqueda);
      
    }
-
 
     return (
         <div class="bg-dark">
@@ -77,18 +75,10 @@ const Header = () => {
                             <Nav.Link href="/perfil">Perfil</Nav.Link>
                             <Nav.Link href="#">FAQs</Nav.Link>
                         </Nav>
-                        <form class="form px-2 w-75 d-flex" onSubmit={buscador}>
-                            <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Buscar" className="form-control inputBuscar"
-                            name="buscador"
-                            value={busqueda}
-                            placeholder="Búsqueda por Usuario o Torneo"
-                            onChange={(e) => setBusqueda(e.target.value)}></input>
-                            <button class="btn btn-outline-success mt-2 mx-2 h-25 d-inline-block" type="submit">Buscar</button>
-                        </form>
-                        <div class="text-end">
-                            <AmplifySignOut />
-                        </div>
                     </Navbar.Collapse>
+                    <div class="d-flex justify-content-end">
+                        <AmplifySignOut />
+                    </div>
                 </Navbar>
             </div>
         </div>

@@ -6,13 +6,15 @@ import swal from 'sweetalert';
 import styled from 'styled-components';
 import Modal from './Modal'
 
-
 export const  MisTorneos =() =>{
 
-       const [listTorneos, setListTorneos] = useState([]);
-       const [estadoModal, cambiarEstadoModal] = useState(false);
-       const [userCreator, setUserCreator] = useState('');
-       const [updateTorneo, setUpdateTorneo] = useState({
+    const [busqueda, setBusqueda] = useState('');
+    var [array, setArrayBusqueda] = useState([]);
+    const [listTorneos, setListTorneos] = useState([]);
+    const [estadoModal, cambiarEstadoModal] = useState(false);
+    const [userCreator, setUserCreator] = useState('');
+    const [union, setUnion]= useState();
+    const [updateTorneo, setUpdateTorneo] = useState({
         id: '',
         name: '',
         sport: '',
@@ -21,8 +23,7 @@ export const  MisTorneos =() =>{
         description: '',
         userCreator:'',
         teams:''
-      });
-    
+    });
     
     useEffect(() =>{
         async function getAllTorneos(){
@@ -86,16 +87,62 @@ export const  MisTorneos =() =>{
       
   }  
 
+  const filtrar=(terminoBusqueda)=>{
+    var resultadosBusqueda=listTorneos.filter((elemento)=>{
+           if(((elemento.name.toString().toLowerCase()).includes(terminoBusqueda.toLowerCase())))
+           {
+               return elemento;
+           }                      
+     }); 
+     setArrayBusqueda(resultadosBusqueda)
+   } 
 
+    const buscador = (e) =>{
+    e.preventDefault()
+    if(!busqueda.trim()){
+        swal({
+            title: "No ingresó una búsqueda",
+            text: "Introduzca algo para buscar",
+            icon: "warning",
+            button: "Aceptar",
+        });
+        return
+    }
+    filtrar(busqueda);
+    
+    }
+
+    const unirmeTorneo = (e) => {
+        setUnion(e.target.value)
+        console.log(e.target.value)
+        swal({
+             title: "Solitud enviada con éxito",
+             text: "El creador del torneo revisará su solicitud",
+             icon: "success",
+             button: "Aceptar",
+         });
+    }
 
     return (
         <Fragment>
-            <div class="container rounded bg-dark mt-5 mb-5"><br></br>
-                <div class="container-fluid col-md-4 rounded bg-white mb-5">
+            <div className="container">
+                <form class="px-2 mx-auto mt-3 w-75 d-flex" onSubmit={buscador}>
+                    <input
+                        class="form-control inputBuscar mr-sm-2"
+                        name="buscador"
+                        value={busqueda}
+                        placeholder="Buscar por nombre de torneo"
+                        onChange={(e) => setBusqueda(e.target.value)}
+                    />
+                    <button type="submit" className="btn btn-success mt-2 mb-2 mx-2 h-25">Buscar</button>
+                </form>
+            </div>
+            <div class="container rounded bg-dark mt-3 mb-3"><br></br>
+                <div class="container-fluid col-md-4 rounded bg-white">
                     <div class="row">
                         <h1 class ="display-1">Mis torneos</h1>
                     </div>
-                </div>
+                </div><br></br>
                 {listTorneos && listTorneos.map(item => {
                     if(item.userCreator == userCreator){
                         return(
