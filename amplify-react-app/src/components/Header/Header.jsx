@@ -1,30 +1,95 @@
 import {AmplifySignOut} from '@aws-amplify/ui-react';
-import { Link } from "react-router-dom";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import {API, Auth} from 'aws-amplify';
+import * as queries from '../../graphql/queries';
+import { useEffect, useState } from "react";
+
 const Header = () => {
+    const [listTorneos, setListTorneos] = useState([]);
+    const [busqueda, setBusqueda] = useState('');
+    var [array, setArrayBusqueda] = useState([]);
+    const [union, setUnion]= useState();
+    const [userCreator, setUserCreator] = useState('');
+
+    useEffect(() =>{
+        async function getAllTorneos(){
+            const allTorneos = await API.graphql({query: queries.listTorneos});
+            setListTorneos(allTorneos.data.listTorneos.items);  
+        }
+        getAllTorneos();
+        Auth.currentAuthenticatedUser().then(user => {
+            setUserCreator(user.username);
+          })
+       
+    });
+
+    const filtrar=(terminoBusqueda)=>{
+        var resultadosBusqueda=listTorneos.filter((elemento)=>{
+               if(((elemento.name.toString().toLowerCase()).includes(terminoBusqueda.toLowerCase())))
+               {
+                   return elemento;
+               }                      
+         }); 
+         setArrayBusqueda(resultadosBusqueda)
+       } 
+    
+
+   const buscador = (e) =>{
+       e.preventDefault()
+       if(!busqueda.trim()){
+           window.alert("Ingrese su busqueda")
+           return
+       }
+       filtrar(busqueda);
+     
+   }
+
+
     return (
-        <div class="p-3 bg-dark text-white">
+        <div class="bg-dark">
             <div class="container">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"></svg>
-                    </a>
-            
-                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><Link to="/" class="nav-link px-2 text-white">Home</Link></li>
-                        <li><Link to="/torneos" class="nav-link px-2 text-white">Torneos</Link></li>
-                        <li><Link to="/mis-torneos" class="nav-link px-2 text-white">Mis Torneos</Link></li>
-                        <li><Link to="/perfil" class="nav-link px-2 text-white">Perfil</Link></li>
-                        <li><Link to="#" class="nav-link px-2 text-white">FAQs</Link></li>
-                    </ul>
-            
-                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                        <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search"></input>
-                    </form>
-            
-                    <div class="text-end">
-                        <AmplifySignOut />
-                    </div> 
-                </div>
+                <Navbar bg="dark" expand="lg" variant="dark">
+                    <Navbar.Brand>
+                        <img
+                            src="/favicon-32x32.png"
+                            width="30"
+                            height="30"
+                            className="align-top"
+                            alt="TorneosApp Logo"
+                        />
+                    </Navbar.Brand>
+                    <Navbar.Brand href="/">TorneosApp</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="navbar"/>
+                    <Navbar.Collapse id="navbar">
+                        <Nav className="mr-auto">
+                            <NavDropdown title="Torneos" id="torneos">
+                                <NavDropdown.Item href="/crear-torneo">Crear Torneo</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="/mis-torneos">Mis Torneos</NavDropdown.Item>
+                            </NavDropdown>
+                            <NavDropdown title="Equipos" id="equipos">
+                                <NavDropdown.Item href="/crear-equipo">Crear Equipo</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="/mis-equipos">Mis equipos</NavDropdown.Item>
+                            </NavDropdown>
+                            <Nav.Link href="/perfil">Perfil</Nav.Link>
+                            <Nav.Link href="#">FAQs</Nav.Link>
+                        </Nav>
+                        <form class="form px-2 w-75 d-flex" onSubmit={buscador}>
+                            <input class="form-control mr-sm-2" type="search" placeholder="" aria-label="Buscar" className="form-control inputBuscar"
+                            name="buscador"
+                            value={busqueda}
+                            placeholder="Búsqueda por Usuario o Torneo"
+                            onChange={(e) => setBusqueda(e.target.value)}></input>
+                            <button class="btn btn-outline-success mt-2 mx-2 h-25 d-inline-block" type="submit">Buscar</button>
+                        </form>
+                        <div class="text-end">
+                            <AmplifySignOut />
+                        </div>
+                    </Navbar.Collapse>
+                </Navbar>
             </div>
         </div>
     );

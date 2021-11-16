@@ -1,29 +1,35 @@
 import { useState, useEffect, Fragment } from 'react';
-import {API} from 'aws-amplify';
+import {API, Auth} from 'aws-amplify';
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import swal from 'sweetalert';
 
 
-const Torneo = () => {
+const CrearTorneo = () => {
 
   const [torneos, setTorneos] = useState({
     name: '',
     sport: '',
     startDate: '',
     endDate: '',
-    description: ''
+    description: '',
+    userCreator:'',
+    teams:''
   });
+  const [userCreator, setUserCreator] = useState('');
 
-   const [listTorneos, setListTorneos] = useState([]);
+  const [listTorneos, setListTorneos] = useState([]);
   useEffect(() =>{
       async function getAllTorneos(){
         const allTorneos = await API.graphql({query: queries.listTorneos});
         setListTorneos(allTorneos.data.listTorneos.items);  
       }
     getAllTorneos();
+    Auth.currentAuthenticatedUser().then(user => {
+      setUserCreator(user.username);
+    })
   });  
-
 
   const handleFormSubmit = async (e)  =>{
 
@@ -32,22 +38,34 @@ const Torneo = () => {
       sport: torneos.sport,
       startDate: torneos.startDate,
       endDate: torneos.endDate,
-      description: torneos.description
+      description: torneos.description,
+      userCreator: userCreator,
+      teams:''
+
     } 
     await API.graphql({query: mutations.createTorneo, variables: {input: CreateTorneoInput}});
+    
+  
   }
 
-
-  const handleInputChange = (e) =>{
+const handleInputChange = (e) =>{
     setTorneos({...torneos, [e.target.name]: e.target.value})
-    console.log(torneos)
+    
   }
+
+const alerta = () =>{
+  swal({
+    title:"Torneo creado con éxito",
+    icon:"success",
+    button:"Aceptar",
+});
+}
 
 return(
   <Fragment>
     <div class="container rounded bg-white mt-5 mb-5">
       <h1>Nuevo torneo</h1>
-        <form className="column" onSubmit={handleFormSubmit}>
+        <form className="column" onSubmit={handleFormSubmit}> 
           <div class="p-2 py-6">
             <div class="d-flex justify-content-between align-items-center mb-3">
               <div class="col-md">
@@ -98,15 +116,15 @@ return(
                 </div>
               </div>
               <div class="d-flex justify-content-center align-items-center mb-3">
-                <button className="btn btn-dark">Crear torneo</button>
+                <button className="btn btn-dark" type="submit" onClick={alerta}>Crear torneo</button>
               </div>
           </div>
-        </form>
+        </form> 
     </div>
   </Fragment>
 );} 
 
-export default Torneo;
+export default CrearTorneo;
     
 
 

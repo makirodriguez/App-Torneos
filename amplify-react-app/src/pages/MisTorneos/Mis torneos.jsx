@@ -1,22 +1,26 @@
 import { useState, useEffect, Fragment } from 'react';
-import {API} from 'aws-amplify';
+import {API, Auth} from 'aws-amplify';
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
-
+import swal from 'sweetalert';
 import styled from 'styled-components';
 import Modal from './Modal'
+
 
 export const  MisTorneos =() =>{
 
        const [listTorneos, setListTorneos] = useState([]);
        const [estadoModal, cambiarEstadoModal] = useState(false);
-       const [torneos, setTorneos] = useState({
+       const [userCreator, setUserCreator] = useState('');
+       const [updateTorneo, setUpdateTorneo] = useState({
         id: '',
         name: '',
         sport: '',
         startDate: '',
         endDate: '',
-        description: ''
+        description: '',
+        userCreator:'',
+        teams:''
       });
     
     
@@ -26,38 +30,62 @@ export const  MisTorneos =() =>{
             setListTorneos(allTorneos.data.listTorneos.items);  
         }
         getAllTorneos();
+        Auth.currentAuthenticatedUser().then(user => {
+            setUserCreator(user.username);
+          })
        
     });
 
  
     const confirmacionDelete = async (id) => {
-        
-          if (window.confirm("¿Realmente queres borrar el torneo?")) {
-        const DeleteTorneoInput={
-            id: id.target.value
-        }
-        await API.graphql({query: mutations.deleteTorneo, variables: {input: DeleteTorneoInput}});
-        }     
+        swal({
+            title:"¿Está seguro que desea eliminar el torneo?",
+            text:"Confirme la acción",
+            icon:"warning",
+            buttons: ["No", "Si"]
+        }).then(respuesta=>{
+              if(respuesta){
+                swal({
+                  title:"Torneo eliminado con éxito",
+                  icon:"success",
+                  button:"Aceptar",
+                })
+                  const DeleteTorneoInput={
+                      id: id.target.value
+                  }
+                  API.graphql({query: mutations.deleteTorneo, variables: {input: DeleteTorneoInput}});
+              }
+        })
     }
 
     const handleInputChange = (e) =>{
-        setTorneos({...torneos, [e.target.name]: e.target.value})
+        setUpdateTorneo({...updateTorneo, [e.target.name]: e.target.value})
     
       }
 
      
-    const confirmacionModify = async (id) => {
+    const confirmacionModify = async (id, userCreator) => {
+
        const UpdateTorneoInput={
         id: id,
-        name: torneos.name,
-        sport: torneos.sport,
-        startDate: torneos.startDate,
-        endDate: torneos.endDate,
-        description: torneos.description
+        name: updateTorneo.name,
+        sport: updateTorneo.sport,
+        startDate: updateTorneo.startDate,
+        endDate: updateTorneo.endDate,
+        description: updateTorneo.description,
+        userCreator: userCreator,
+        teams:''
       }
-      await API.graphql({query: mutations.updateTorneo, variables: {input: UpdateTorneoInput}}); 
+      await API.graphql({query: mutations.updateTorneo, variables: {input: UpdateTorneoInput}});
+      swal({
+        title:"Torneo modificado con éxito",
+        icon:"success",
+        button:"Aceptar",
+        timer:"5000"
+    });
       
   }  
+
 
 
     return (
@@ -68,7 +96,9 @@ export const  MisTorneos =() =>{
                         <h1 class ="display-1">Mis torneos</h1>
                     </div>
                 </div>
-                {listTorneos && listTorneos.map(item => 
+                {listTorneos && listTorneos.map(item => {
+                    if(item.userCreator == userCreator){
+                        return(
                        
                           <div class="container-fluid col-md-5 rounded bg-white mt-4 mb-5">
                             <div class="row">
@@ -149,7 +179,7 @@ export const  MisTorneos =() =>{
                                     onChange={handleInputChange}/> 
                                 </div>
                             </div>
-                                    <Boton  onClick={() => {cambiarEstadoModal(!estadoModal); confirmacionModify(item.id)}}>Guardar cambios</Boton>
+                                    <Boton  onClick={() => {cambiarEstadoModal(!estadoModal); confirmacionModify(item.id, userCreator)}}>Guardar cambios</Boton>
                                 </Contenido>
                             </Modal>
                             
@@ -157,7 +187,7 @@ export const  MisTorneos =() =>{
                 
                         
                 
-                )} 
+                )}})} 
                 </div>
 
   </Fragment>
