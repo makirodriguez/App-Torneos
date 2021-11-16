@@ -7,10 +7,21 @@ const Perfil = () => {
     const [email, setEmail] = useState('');
     const [phone_number, setPhonenumber] = useState('');
     const [listProfiles, setListProfiles] = useState([]);
+    const [perfil, setPerfil] = useState({
+        name: '',  
+        lastname: '',
+        number: '',
+        email: '',
+        country: '',
+        province: '',
+        filePath: ''
+      });
     useEffect(() => {
         async function getProfile(){
             const profile = await API.graphql({query: queries.listProfiles});
             setListProfiles(profile.data.listProfiles.items);  
+            console.log(profile.data.listProfiles.items)
+
           }
         getProfile()
         Auth.currentAuthenticatedUser().then(user => {
@@ -20,16 +31,7 @@ const Perfil = () => {
         });
       }, [])
 
-      const [perfil, setPerfil] = useState({
-        name: '',  
-        lastname: '',
-        number: '',
-        email: '',
-        country: '',
-        province: '',
-        filePath: ''
-      });
-
+   
       const handleFormSubmit = async (e)  =>{
 
         const CreateProfileInput = {
@@ -48,7 +50,6 @@ const Perfil = () => {
    
      const handleInputChange = (e) =>{
        setPerfil({...perfil, [e.target.name]: e.target.value})
-       console.log(phone_number)
      }
      
     return (
@@ -67,10 +68,11 @@ const Perfil = () => {
                 
                 <div class="col-md-5 border-right">
                     <div class="p-3 py-5">
+                    <form onSubmit={handleFormSubmit}>
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right">Configurar perfil</h4>
                         </div>
-                        <form onSubmit={handleFormSubmit}>
+                        
                         <div class="row mt-2">
                             <div class="col-md-6"><label class="labels">Nombre</label><input type="text" class="form-control" placeholder="Nombre" name="name" onChange={handleInputChange}></input></div>
                             <div class="col-md-6"><label class="labels">Apellido</label><input type="text" class="form-control" placeholder="Apellido" name="lastname" onChange={handleInputChange}></input></div>
