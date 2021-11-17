@@ -67,7 +67,7 @@ const ExpandMore = styled2((props) => {
 
 export const  MisTorneos =() =>{
 
-
+    const [expanded, setExpanded] = React.useState(false);
     const [busqueda, setBusqueda] = useState('');
     var [array, setArrayBusqueda] = useState([]);
     const [listTorneos, setListTorneos] = useState([]);
@@ -230,12 +230,6 @@ export const  MisTorneos =() =>{
                         </Table>
                 </TableContainer>
             </div>
-            <div class="container rounded bg-dark mt-3 mb-3"><br></br>
-                <div class="container-fluid col-md-4 rounded bg-white">
-                    <div class="row">
-                        <h1 class ="display-1">Mis torneos</h1>
-                    </div>
-                </div><br></br>
  
 <div class="d-flex overflow-auto position-absolute top-50 start-50 translate-middle h-75 w-75">
                     {listTorneos && listTorneos.map(item => {
