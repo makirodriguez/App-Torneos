@@ -7,6 +7,13 @@ import cancha from '../../imagenes/cancha.jpg'
 import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components';
 import Modal from './Modal'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 import * as React from 'react';
 import { styled as styled2 } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -26,6 +33,26 @@ import EditIcon from '@mui/icons-material/Edit';
 import '../../App.css';
 
 
+const StyledTableCell = styled2(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+  
+  const StyledTableRow = styled2(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));
+
 
 const ExpandMore = styled2((props) => {
     const { expand, ...other } = props;
@@ -40,11 +67,14 @@ const ExpandMore = styled2((props) => {
 
 export const  MisTorneos =() =>{
 
-       const [listTorneos, setListTorneos] = useState([]);
-       const [expanded, setExpanded] = React.useState(false);
-       const [estadoModal, cambiarEstadoModal] = useState(false);
-       const [userCreator, setUserCreator] = useState('');
-       const [updateTorneo, setUpdateTorneo] = useState({
+
+    const [busqueda, setBusqueda] = useState('');
+    var [array, setArrayBusqueda] = useState([]);
+    const [listTorneos, setListTorneos] = useState([]);
+    const [estadoModal, cambiarEstadoModal] = useState(false);
+    const [userCreator, setUserCreator] = useState('');
+    const [union, setUnion]= useState();
+    const [updateTorneo, setUpdateTorneo] = useState({
         id: '',
         name: '',
         sport: '',
@@ -53,8 +83,7 @@ export const  MisTorneos =() =>{
         description: '',
         userCreator:'',
         teams:''
-      });
-    
+    });
     
     useEffect(() =>{
         async function getAllTorneos(){
@@ -125,13 +154,93 @@ export const  MisTorneos =() =>{
       
   }  
 
+  const filtrar=(terminoBusqueda)=>{
+    var resultadosBusqueda=listTorneos.filter((elemento)=>{
+           if(((elemento.name.toString().toLowerCase()).includes(terminoBusqueda.toLowerCase())))
+           {
+               return elemento;
+           }                      
+     }); 
+     setArrayBusqueda(resultadosBusqueda)
+   } 
 
+    const buscador = (e) =>{
+    e.preventDefault()
+    if(!busqueda.trim()){
+        swal({
+            title: "No ingresó una búsqueda",
+            text: "Introduzca algo para buscar",
+            icon: "warning",
+            button: "Aceptar",
+        });
+        return
+    }
+    filtrar(busqueda);
+    
+    }
+
+    const unirmeTorneo = (e) => {
+        setUnion(e.target.value)
+        console.log(e.target.value)
+        swal({
+             title: "Solitud enviada con éxito",
+             text: "El creador del torneo revisará su solicitud",
+             icon: "success",
+             button: "Aceptar",
+         });
+    }
 
     return (
         <Fragment>
+            <div className="container">
+                <form class="px-2 mx-auto mt-3 w-75 d-flex mb-3" onSubmit={buscador}>
+                    <input
+                        class="form-control inputBuscar mr-sm-2"
+                        name="buscador"
+                        value={busqueda}
+                        placeholder="Buscar torneo para unirse por nombre"
+                        onChange={(e) => setBusqueda(e.target.value)}
+                    />
+                    <button type="submit" className="btn btn-success mt-2 mb-2 mx-2 h-25">Buscar</button>
+                </form>
+                <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 5 }} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>Torneo</StyledTableCell>
+                                    <StyledTableCell>Fecha de inicio</StyledTableCell>
+                                    <StyledTableCell>Fecha de fin</StyledTableCell>
+                                    <StyledTableCell></StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {array.map((item) => (
+                                    <StyledTableRow>
+                                        <StyledTableCell component="th" scope="row">
+                                            {item.name}
+                                        </StyledTableCell>
+                                        <StyledTableCell>{item.startDate}</StyledTableCell>
+                                        <StyledTableCell>{item.endDate}</StyledTableCell>
+                                        <StyledTableCell>
+                                            <button  onClick={unirmeTorneo} value={item.id}>Enviar solicitud</button>
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                </TableContainer>
+            </div>
+            <div class="container rounded bg-dark mt-3 mb-3"><br></br>
+                <div class="container-fluid col-md-4 rounded bg-white">
+                    <div class="row">
+                        <h1 class ="display-1">Mis torneos</h1>
+                    </div>
+                </div><br></br>
+ 
 <div class="d-flex overflow-auto position-absolute top-50 start-50 translate-middle h-75 w-75">
                     {listTorneos && listTorneos.map(item => {
                     if(item.userCreator == userCreator){
+
                         return(
                         <div class="d-flex col-md-3">
                             <div>

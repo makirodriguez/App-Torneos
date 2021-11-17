@@ -1,12 +1,13 @@
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect, Fragment, useRef } from 'react';
 import {API, Auth} from 'aws-amplify';
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import swal from 'sweetalert';
 
-
 const CrearEquipo = () => {
+
+  const form = useRef(null);
 
   const [team, setTeam] = useState({
     name: '',
@@ -28,12 +29,21 @@ const CrearEquipo = () => {
 
   const handleFormSubmit = async (e)  =>{
 
+    e.preventDefault();
+
+    swal({
+      title:"Equipo creado con éxito",
+      icon:"success",
+      button:"Aceptar",
+    })
+
      const CreateTeamInput = {
       name: team.name,
       users:['']
 
     } 
     await API.graphql({query: mutations.createTeam, variables: {input: CreateTeamInput}});   
+    form.current.reset();
   }
 
 const handleInputChange = (e) =>{
@@ -41,32 +51,24 @@ const handleInputChange = (e) =>{
     
   }
 
-const alerta = () =>{
-  swal({
-    title:"Equipo creado con éxito",
-    icon:"success",
-    button:"Aceptar",
-});
-}
-
 return(
   <Fragment>
     <div class="container rounded bg-white mt-5 mb-5">
       <h1>Nuevo equipo</h1>
-        <form className="column" onSubmit={handleFormSubmit}> 
+        <form ref={form} className="column" onSubmit={handleFormSubmit}> 
           <div class="p-2 py-6">
             <div class="d-flex justify-content-between align-items-center mb-3">
               <div class="col-md">
                 <label class="labels">Nombre del equipo</label>
                 <input  className="form-control"
-                placeholder="Ingrese el nombre del torneo"  
+                placeholder="Ingrese el nombre del equipo"  
                 type="text" 
                 name="name" 
                 onChange={handleInputChange}/>
               </div>
             </div>
               <div class="d-flex justify-content-center align-items-center mb-3">
-                <button className="btn btn-dark" type="submit" onClick={alerta}>Crear torneo</button>
+                <button className="btn btn-dark" type="submit">Crear equipo</button>
               </div>
           </div>
         </form> 
@@ -75,7 +77,6 @@ return(
 );} 
 
 export default CrearEquipo;
-    
 
 
 

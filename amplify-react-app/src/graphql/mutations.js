@@ -39,6 +39,7 @@ export const updateTorneo = /* GraphQL */ `
     }
   }
 `;
+
 export const deleteTorneo = /* GraphQL */ `
   mutation DeleteTorneo(
     $input: DeleteTorneoInput!
@@ -49,6 +50,7 @@ export const deleteTorneo = /* GraphQL */ `
     }
   }
 `;
+
 export const createProfile = /* GraphQL */ `
   mutation CreateProfile(
     $input: CreateProfileInput!
@@ -85,6 +87,7 @@ export const updateProfile = /* GraphQL */ `
     }
   }
 `;
+
 export const deleteProfile = /* GraphQL */ `
   mutation DeleteProfile(
     $input: DeleteProfileInput!
