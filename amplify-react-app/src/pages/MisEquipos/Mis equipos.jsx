@@ -94,8 +94,7 @@ const MisEquipos = () => {
        const UpdateTeamInput={
         id: id,
         name: updateTeam.name,
-        users:'',
-        userCreator: userCreator
+        users:''
       }
       await API.graphql({query: mutations.updateTeam, variables: {input: UpdateTeamInput}});
       swal({
