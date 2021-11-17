@@ -77,7 +77,6 @@ return(
 );} 
 
 export default CrearEquipo;
-    
 
 
 

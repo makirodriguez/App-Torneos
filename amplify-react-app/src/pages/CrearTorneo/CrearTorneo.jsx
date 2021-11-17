@@ -4,7 +4,6 @@ import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import swal from 'sweetalert';
-import { Form, FormControl, ControlLabel } from 'react-bootstrap';
 
 const CrearTorneo = () => {
 

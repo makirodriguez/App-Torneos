@@ -8,9 +8,6 @@ import { useEffect, useState } from "react";
 
 const Header = () => {
     const [listTorneos, setListTorneos] = useState([]);
-    const [busqueda, setBusqueda] = useState('');
-    var [array, setArrayBusqueda] = useState([]);
-    const [union, setUnion]= useState();
     const [userCreator, setUserCreator] = useState('');
 
     useEffect(() =>{
@@ -24,26 +21,6 @@ const Header = () => {
           })
        
     });
-
-    const filtrar=(terminoBusqueda)=>{
-        var resultadosBusqueda=listTorneos.filter((elemento)=>{
-               if(((elemento.name.toString().toLowerCase()).includes(terminoBusqueda.toLowerCase())))
-               {
-                   return elemento;
-               }                      
-         }); 
-         setArrayBusqueda(resultadosBusqueda)
-       } 
-    
-   const buscador = (e) =>{
-       e.preventDefault()
-       if(!busqueda.trim()){
-           window.alert("Ingrese su busqueda")
-           return
-       }
-       filtrar(busqueda);
-     
-   }
 
     return (
         <div class="bg-dark">

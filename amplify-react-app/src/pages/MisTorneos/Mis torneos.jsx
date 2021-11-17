@@ -5,6 +5,34 @@ import * as mutations from '../../graphql/mutations';
 import swal from 'sweetalert';
 import styled from 'styled-components';
 import Modal from './Modal'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { styled as styled2 } from '@mui/material/styles';
+
+const StyledTableCell = styled2(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+  
+  const StyledTableRow = styled2(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));
 
 export const  MisTorneos =() =>{
 
@@ -126,16 +154,42 @@ export const  MisTorneos =() =>{
     return (
         <Fragment>
             <div className="container">
-                <form class="px-2 mx-auto mt-3 w-75 d-flex" onSubmit={buscador}>
+                <form class="px-2 mx-auto mt-3 w-75 d-flex mb-3" onSubmit={buscador}>
                     <input
                         class="form-control inputBuscar mr-sm-2"
                         name="buscador"
                         value={busqueda}
-                        placeholder="Buscar por nombre de torneo"
+                        placeholder="Buscar torneo para unirse por nombre"
                         onChange={(e) => setBusqueda(e.target.value)}
                     />
                     <button type="submit" className="btn btn-success mt-2 mb-2 mx-2 h-25">Buscar</button>
                 </form>
+                <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 5 }} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>Torneo</StyledTableCell>
+                                    <StyledTableCell>Fecha de inicio</StyledTableCell>
+                                    <StyledTableCell>Fecha de fin</StyledTableCell>
+                                    <StyledTableCell></StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {array.map((item) => (
+                                    <StyledTableRow>
+                                        <StyledTableCell component="th" scope="row">
+                                            {item.name}
+                                        </StyledTableCell>
+                                        <StyledTableCell>{item.startDate}</StyledTableCell>
+                                        <StyledTableCell>{item.endDate}</StyledTableCell>
+                                        <StyledTableCell>
+                                            <button  onClick={unirmeTorneo} value={item.id}>Enviar solicitud</button>
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                </TableContainer>
             </div>
             <div class="container rounded bg-dark mt-3 mb-3"><br></br>
                 <div class="container-fluid col-md-4 rounded bg-white">
@@ -144,7 +198,7 @@ export const  MisTorneos =() =>{
                     </div>
                 </div><br></br>
                 {listTorneos && listTorneos.map(item => {
-                    if(item.userCreator == userCreator){
+                    if(item.userCreator === userCreator){
                         return(
                        
                           <div class="container-fluid col-md-5 rounded bg-white mt-4 mb-5">
