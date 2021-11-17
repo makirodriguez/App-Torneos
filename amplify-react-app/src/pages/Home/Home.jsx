@@ -21,7 +21,7 @@ const Home = () => {
           para llevar el seguimiento del mismo al día. </p>
           <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
 
-            <button type="submit" class="btn btn-dark btn-lg px-4 gap-3"><Link to="/torneos" class="App-link">Crear torneo</Link></button>
+            <button type="submit" class="btn btn-dark btn-lg px-4 gap-3"><Link to="/crear-torneo" class="App-link">Crear torneo</Link></button>
 
           </div>
         </div>
