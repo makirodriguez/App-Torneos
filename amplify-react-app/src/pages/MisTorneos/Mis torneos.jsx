@@ -1,8 +1,10 @@
 import { useState, useEffect, Fragment } from 'react';
 import {API, Auth} from 'aws-amplify';
+import swal from "sweetalert";
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
-import swal from 'sweetalert';
+import cancha from '../../imagenes/cancha.jpg'
+import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components';
 import Modal from './Modal'
 import Table from '@mui/material/Table';
@@ -12,7 +14,24 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import * as React from 'react';
 import { styled as styled2 } from '@mui/material/styles';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Collapse from '@mui/material/Collapse';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import { red, green } from '@mui/material/colors';
+import ShareIcon from '@mui/icons-material/Share';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Fab from '@mui/material/Fab';
+import EditIcon from '@mui/icons-material/Edit';
+import '../../App.css';
+
 
 const StyledTableCell = styled2(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -34,7 +53,20 @@ const StyledTableCell = styled2(TableCell)(({ theme }) => ({
     },
   }));
 
+
+const ExpandMore = styled2((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
+
 export const  MisTorneos =() =>{
+
 
     const [busqueda, setBusqueda] = useState('');
     var [array, setArrayBusqueda] = useState([]);
@@ -65,7 +97,14 @@ export const  MisTorneos =() =>{
        
     });
 
- 
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+      };
+    
+    const expandirTorneo = () => {
+
+    }
+
     const confirmacionDelete = async (id) => {
         swal({
             title:"¿Está seguro que desea eliminar el torneo?",
@@ -80,7 +119,7 @@ export const  MisTorneos =() =>{
                   button:"Aceptar",
                 })
                   const DeleteTorneoInput={
-                      id: id.target.value
+                      id: id
                   }
                   API.graphql({query: mutations.deleteTorneo, variables: {input: DeleteTorneoInput}});
               }
@@ -197,24 +236,68 @@ export const  MisTorneos =() =>{
                         <h1 class ="display-1">Mis torneos</h1>
                     </div>
                 </div><br></br>
-                {listTorneos && listTorneos.map(item => {
-                    if(item.userCreator === userCreator){
+ 
+<div class="d-flex overflow-auto position-absolute top-50 start-50 translate-middle h-75 w-75">
+                    {listTorneos && listTorneos.map(item => {
+                    if(item.userCreator == userCreator){
+
                         return(
-                       
-                          <div class="container-fluid col-md-5 rounded bg-white mt-4 mb-5">
-                            <div class="row">
-                                <p key={item.id} >
-                                    <h1>Nombre del torneo</h1>
-                                    <h2>{item.name}</h2><br></br>
-                                    <h1>Deporte</h1>
-                                    <h2>{item.sport}</h2><br></br>
-                                    <h1>Fecha de inicio: {item.startDate}</h1><br></br>
-                                    <h1>Fecha de fin: {item.endDate}</h1><br></br>
-                                    <h1>Descripción: {item.description}</h1><br></br><br></br>
-                                  
-                                    <button className="btn btn-primary btn-lg" onClick={() => cambiarEstadoModal(!estadoModal)}>Modificar</button>
-                                    <button className="btn btn-danger btn-lg" value={item.id} onClick={confirmacionDelete}>Eliminar</button>
-                                </p>
+                        <div class="d-flex col-md-3">
+                            <div>
+                            <Card sx={{ maxWidth: 345 }}>
+                            <CardHeader
+                                avatar={
+                                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                    F
+                                </Avatar>
+                                }
+                                action={
+                                <IconButton aria-label="share">
+                                <ShareIcon />
+                                </IconButton>
+                                }
+                                title={item.name}
+                            />
+                            <CardMedia
+                                component="img"
+                                height="194"
+                                image={cancha}
+                            />
+                            <CardContent>
+                                <Typography variant="body2" color="text.secondary">
+                                    Deporte: {item.sport} <br></br>
+                                    Fecha de inicio: {item.startDate} <br></br>
+                                    Fecha de fin: {item.endDate} 
+                                </Typography>
+                            </CardContent>
+                            <CardActions disableSpacing>
+                            
+                            <Fab size="small" sx={{ bgcolor: red[500] }} color="primary" aria-label="delete" >
+                            <DeleteIcon onClick={() => confirmacionDelete(item.id)} />
+                            </Fab>
+                        
+                            &nbsp;&nbsp;
+                            <Fab size="small" sx={{ bgcolor: green[500] }} color="primary" aria-label="edit">
+                            <EditIcon onClick={() => cambiarEstadoModal(!estadoModal)}/>
+                            </Fab>
+                                <ExpandMore
+                                expand={expanded}
+                                onClick={handleExpandClick}
+                                aria-expanded={expanded}
+                                aria-label="show more"
+                                >
+                                <ExpandMoreIcon />
+                                </ExpandMore>
+                            </CardActions>
+                            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                                <CardContent>
+                                <Typography paragraph>Descripcion:</Typography>
+                                <Typography paragraph>
+                                    {item.description}
+                                </Typography>
+                                </CardContent>
+                            </Collapse>
+                            </Card>
                             </div> 
                             <Modal
                                 estado={estadoModal}
@@ -285,6 +368,7 @@ export const  MisTorneos =() =>{
                             </Modal>
                             
                              </div> 
+                             
                 
                         
                 
