@@ -67,8 +67,9 @@ const ExpandMore = styled2((props) => {
 
 export const  MisTorneos =() =>{
 
-    const [expanded, setExpanded] = React.useState(false);
+    
     const [busqueda, setBusqueda] = useState('');
+    const [expanded, setExpanded] = React.useState(false);
     var [array, setArrayBusqueda] = useState([]);
     const [listTorneos, setListTorneos] = useState([]);
     const [estadoModal, cambiarEstadoModal] = useState(false);
@@ -192,46 +193,7 @@ export const  MisTorneos =() =>{
 
     return (
         <Fragment>
-            <div className="container">
-                <form class="px-2 mx-auto mt-3 w-75 d-flex mb-3" onSubmit={buscador}>
-                    <input
-                        class="form-control inputBuscar mr-sm-2"
-                        name="buscador"
-                        value={busqueda}
-                        placeholder="Buscar torneo para unirse por nombre"
-                        onChange={(e) => setBusqueda(e.target.value)}
-                    />
-                    <button type="submit" className="btn btn-success mt-2 mb-2 mx-2 h-25">Buscar</button>
-                </form>
-                <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 5 }} aria-label="customized table">
-                            <TableHead>
-                                <TableRow>
-                                    <StyledTableCell>Torneo</StyledTableCell>
-                                    <StyledTableCell>Fecha de inicio</StyledTableCell>
-                                    <StyledTableCell>Fecha de fin</StyledTableCell>
-                                    <StyledTableCell></StyledTableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {array.map((item) => (
-                                    <StyledTableRow>
-                                        <StyledTableCell component="th" scope="row">
-                                            {item.name}
-                                        </StyledTableCell>
-                                        <StyledTableCell>{item.startDate}</StyledTableCell>
-                                        <StyledTableCell>{item.endDate}</StyledTableCell>
-                                        <StyledTableCell>
-                                            <button  onClick={unirmeTorneo} value={item.id}>Enviar solicitud</button>
-                                        </StyledTableCell>
-                                    </StyledTableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                </TableContainer>
-            </div>
- 
-<div class="d-flex overflow-auto position-absolute top-50 start-50 translate-middle h-75 w-75">
+        <div class="d-flex overflow-auto position-absolute top-50 start-50 translate-middle h-75 w-75">
                     {listTorneos && listTorneos.map(item => {
                     if(item.userCreator == userCreator){
 
@@ -367,6 +329,44 @@ export const  MisTorneos =() =>{
                         
                 
                 )}})} 
+                <div className="container">
+                <form class="px-2 mx-auto mt-3 w-75 d-flex mb-3" onSubmit={buscador}>
+                    <input
+                        class="form-control inputBuscar mr-sm-2"
+                        name="buscador"
+                        value={busqueda}
+                        placeholder="Buscar torneo para unirse por nombre"
+                        onChange={(e) => setBusqueda(e.target.value)}
+                    />
+                    <button type="submit" className="btn btn-success mt-2 mb-2 mx-2 h-25">Buscar</button>
+                </form>
+                <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 5 }} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>Torneo</StyledTableCell>
+                                    <StyledTableCell>Fecha de inicio</StyledTableCell>
+                                    <StyledTableCell>Fecha de fin</StyledTableCell>
+                                    <StyledTableCell></StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {array.map((item) => (
+                                    <StyledTableRow>
+                                        <StyledTableCell component="th" scope="row">
+                                            {item.name}
+                                        </StyledTableCell>
+                                        <StyledTableCell>{item.startDate}</StyledTableCell>
+                                        <StyledTableCell>{item.endDate}</StyledTableCell>
+                                        <StyledTableCell>
+                                            <button  onClick={unirmeTorneo} value={item.id}>Enviar solicitud</button>
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                </TableContainer>
+            </div>
                 </div>
 
   </Fragment>
