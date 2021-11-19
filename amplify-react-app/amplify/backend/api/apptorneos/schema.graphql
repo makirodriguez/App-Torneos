@@ -23,4 +23,5 @@ type Team @model {
   id: ID!
   name: String!
   users: [String]
+  userCreator: String
 }

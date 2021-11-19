@@ -102,9 +102,7 @@ export const  MisTorneos =() =>{
         setExpanded(!expanded);
       };
     
-    const expandirTorneo = () => {
-
-    }
+  
 
     const confirmacionDelete = async (id) => {
         swal({

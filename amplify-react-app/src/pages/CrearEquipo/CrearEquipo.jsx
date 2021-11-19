@@ -8,7 +8,7 @@ import swal from 'sweetalert';
 const CrearEquipo = () => {
 
   const form = useRef(null);
-
+  const [email, setEmail]= useState('');
   const [team, setTeam] = useState({
     name: '',
     users:[]
@@ -24,6 +24,7 @@ const CrearEquipo = () => {
     getAllTeams();
     Auth.currentAuthenticatedUser().then(user => {
       setUserCreator(user.username);
+      setEmail(user.attributes.email);
     })
   });  
 
@@ -39,8 +40,8 @@ const CrearEquipo = () => {
 
      const CreateTeamInput = {
       name: team.name,
-      users:['']
-
+      users:[email],
+      userCreator: email
     } 
     await API.graphql({query: mutations.createTeam, variables: {input: CreateTeamInput}});   
     form.current.reset();

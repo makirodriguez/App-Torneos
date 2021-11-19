@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "{\"createdOn\":\"Linux\",\"createdBy\":\"Amplify\",\"createdWith\":\"7.3.0\",\"stackType\":\"api-AppSync\",\"metadata\":{}}",
+  "Description": "An auto-generated nested stack.",
   "Metadata": {},
   "Parameters": {
     "DynamoDBModelTableReadIOPS": {
@@ -129,7 +129,7 @@
             {
               "Ref": "APIKeyExpirationEpoch"
             },
-            1637596973
+            1637885116
           ]
         }
       },
