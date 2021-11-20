@@ -14,6 +14,23 @@ import Modal from './Modal'
 import * as mutations from '../../graphql/mutations';
 import { styled as styled2 } from '@mui/material/styles';
 import styled  from 'styled-components';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Collapse from '@mui/material/Collapse';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import { red, green } from '@mui/material/colors';
+import ShareIcon from '@mui/icons-material/Share';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Fab from '@mui/material/Fab';
+import EditIcon from '@mui/icons-material/Edit';
+import '../../App.css';
+import cancha from '../../imagenes/cancha.jpg';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const StyledTableCell = styled2(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -35,10 +52,11 @@ const StyledTableCell = styled2(TableCell)(({ theme }) => ({
     },
   }));
 
-
+  
 const MisEquipos = () => {
     const [listTeams, setListTeams] = useState([]);
     const [busqueda, setBusqueda] = useState('');
+    const [expanded, setExpanded] = React.useState(false);
     var [array, setArrayBusqueda] = useState([]);
     const [union, setUnion]= useState();
     const [userCreator, setUserCreator] = useState('');
@@ -76,7 +94,7 @@ const MisEquipos = () => {
                   button:"Aceptar",
                 })
                   const DeleteTeamInput={
-                      id: id.target.value
+                      id: id
                   }
                   API.graphql({query: mutations.deleteTeam, variables: {input: DeleteTeamInput}});
               }
@@ -146,7 +164,7 @@ const MisEquipos = () => {
 
     return (
         <Fragment>
-            <div className="container">
+             <div className="container">
                 <form class="px-2 mx-auto mt-3 w-75 d-flex mb-3" onSubmit={buscador}>
                     <input
                         class="form-control inputBuscar mr-sm-2"
@@ -172,7 +190,7 @@ const MisEquipos = () => {
                                     <StyledTableCell component="th" scope="row">{item.name}</StyledTableCell>
                                     <StyledTableCell component="th" scope="row">{item.userCreator}</StyledTableCell>
                                     <StyledTableCell>
-                                        <button  onClick={unirmeTeam} value={item.id}>Enviar solicitud</button>
+                                        <button className="btn btn-success mt-2 mb-2 mx-2 h-25" onClick={unirmeTeam} value={item.id}>Enviar solicitud</button>
                                     </StyledTableCell>
                                 </StyledTableRow>
                             ))}
@@ -180,54 +198,82 @@ const MisEquipos = () => {
                     </Table>
                 </TableContainer> 
             </div>
-            <div class="container rounded bg-dark mt-3 mb-5"><br></br>
-                <div class="container-fluid col-md-4 rounded bg-white">
-                    <div class="row">
-                        <h1 class ="display-1">Mis equipos</h1>
-                    </div>
-                </div><br></br>
-                {listTeams && listTeams.map(item => {
-                    /*if(item.userCreator == userCreator){*/
-                        return(
-                          <div class="container-fluid col-md-5 rounded bg-white mt-4 mb-5">
-                            <div class="row">
-                                <p key={item.id} >
-                                    <h1>Nombre del equipo</h1>
-                                    <h2>{item.name}</h2><br></br>
-                                    <button className="btn btn-primary btn-lg" onClick={() => cambiarEstadoModal(!estadoModal)}>Modificar</button>
-                                    <button className="btn btn-danger btn-lg" value={item.id} onClick={confirmacionDelete}>Eliminar</button>
-                                </p>
-                            </div>
-                            <Modal
-                                estado={estadoModal}
-                                cambiarEstado={cambiarEstadoModal}
-                                titulo="Modificar equipo"
-                                mostrarHeader={true}
-                                mostrarOverlay={true}
-                                posicionModal={'center'}
-                                padding={'20px'}
-                                key={item.id}
-                            >
-                                <Contenido>
+            <div class="container">
+                <div class="d-flex overflow-scroll mt-3">
+                        {listTeams && listTeams.map(item => {
+                        /*if(item.userCreator == userCreator){*/
+
+                            return(
+                            <div class="d-flex col-md-3">
+                                <div>
+                                <Card sx={{ maxWidth: 345 }}>
+                                <CardHeader
+                                    avatar={
+                                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                        F
+                                    </Avatar>
+                                    }
+                                    action={
+                                    <IconButton aria-label="share">
+                                    <ShareIcon />
+                                    </IconButton>
+                                    }
+                                    title={item.name}
+                                />
+                                <CardMedia
+                                    component="img"
+                                    height="194"
+                                    image={cancha}
+                                />
+                                <CardContent>
+                                    <Typography variant="body2" color="text.secondary">
+                                        Creador: {item.userCreator}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions disableSpacing>
                                 
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <div class="col-md">
-                                        <label class="labels">Nombre del equipo</label>
-                                        <input  className="form-control"
-                                        placeholder="Ingrese el nombre del equipo"  
-                                        type="text" 
-                                        name="name" 
-                                        onChange={handleInputChange}/>
-                                    </div> 
-                                </div>   
-                                    <Boton  onClick={() => {cambiarEstadoModal(!estadoModal); confirmacionModify(item.id, userCreator)}}>Guardar cambios</Boton>
-                                </Contenido>
-                            </Modal>
+                                <Fab size="small" sx={{ bgcolor: red[500] }} color="primary" aria-label="delete" >
+                                <DeleteIcon onClick={() => confirmacionDelete(item.id, userCreator)} />
+                                </Fab>
                             
-                             </div> 
-                
-                )}/*}*/)} 
+                                &nbsp;&nbsp;
+                                <Fab size="small" sx={{ bgcolor: green[500] }} color="primary" aria-label="edit">
+                                <EditIcon onClick={() => cambiarEstadoModal(!estadoModal)}/>
+                                </Fab>
+                                </CardActions>
+                                </Card>
+                                </div> 
+                                <Modal
+                                    estado={estadoModal}
+                                    cambiarEstado={cambiarEstadoModal}
+                                    titulo="Modificar equipo"
+                                    mostrarHeader={true}
+                                    mostrarOverlay={true}
+                                    posicionModal={'center'}
+                                    padding={'20px'}
+                                    key={item.id}
+                                >
+                                    <Contenido>
+                                    
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="col-md">
+                                            <label class="labels">Nombre del equipo</label>
+                                            <input  className="form-control"
+                                            placeholder="Ingrese el nombre del equipo"  
+                                            type="text" 
+                                            name="name" 
+                                            onChange={handleInputChange}/>
+                                        </div> 
+                                    </div>   
+                                        <Boton  onClick={() => {cambiarEstadoModal(!estadoModal); confirmacionModify(item.id, userCreator)}}>Guardar cambios</Boton>
+                                    </Contenido>
+                                </Modal>
+                                
+                            </div> 
+                    
+                    )}/*}*/)}
                 </div>
+            </div>
 
   </Fragment>
     ); 
