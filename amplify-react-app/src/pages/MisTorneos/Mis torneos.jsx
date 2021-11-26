@@ -67,6 +67,7 @@ const ExpandMore = styled2((props) => {
 
 export const  MisTorneos =() =>{
 
+    
     const [busqueda, setBusqueda] = useState('');
     const [expanded, setExpanded] = React.useState(false);
     var [array, setArrayBusqueda] = useState([]);
@@ -188,7 +189,7 @@ export const  MisTorneos =() =>{
     }
 
     return (
-        <Fragment>
+
             <div className="container">
                 <form class="px-2 mx-auto mt-3 w-75 d-flex mb-3" onSubmit={buscador}>
                     <input
