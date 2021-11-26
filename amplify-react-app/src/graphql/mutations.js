@@ -115,6 +115,7 @@ export const createTeam = /* GraphQL */ `
       id
       name
       users
+      userCreator
       createdAt
       updatedAt
     }
@@ -129,6 +130,7 @@ export const updateTeam = /* GraphQL */ `
       id
       name
       users
+      userCreator
       createdAt
       updatedAt
     }
@@ -141,10 +143,6 @@ export const deleteTeam = /* GraphQL */ `
   ) {
     deleteTeam(input: $input, condition: $condition) {
       id
-      name
-      users
-      createdAt
-      updatedAt
 
     }
   }

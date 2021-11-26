@@ -27,6 +27,7 @@ type Team {
   id: ID!
   name: String!
   users: [String]
+  userCreator: String
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -276,6 +277,7 @@ input ModelTeamFilterInput {
   id: ModelIDInput
   name: ModelStringInput
   users: ModelStringInput
+  userCreator: ModelStringInput
   and: [ModelTeamFilterInput]
   or: [ModelTeamFilterInput]
   not: ModelTeamFilterInput
@@ -285,12 +287,14 @@ input CreateTeamInput {
   id: ID
   name: String!
   users: [String]
+  userCreator: String
 }
 
 input UpdateTeamInput {
   id: ID!
   name: String
   users: [String]
+  userCreator: String
 }
 
 input DeleteTeamInput {
@@ -300,6 +304,7 @@ input DeleteTeamInput {
 input ModelTeamConditionInput {
   name: ModelStringInput
   users: ModelStringInput
+  userCreator: ModelStringInput
   and: [ModelTeamConditionInput]
   or: [ModelTeamConditionInput]
   not: ModelTeamConditionInput

@@ -67,7 +67,6 @@ const ExpandMore = styled2((props) => {
 
 export const  MisTorneos =() =>{
 
-    
     const [busqueda, setBusqueda] = useState('');
     const [expanded, setExpanded] = React.useState(false);
     var [array, setArrayBusqueda] = useState([]);
@@ -193,143 +192,7 @@ export const  MisTorneos =() =>{
 
     return (
         <Fragment>
-        <div class="d-flex overflow-auto position-absolute top-50 start-50 translate-middle h-75 w-75">
-                    {listTorneos && listTorneos.map(item => {
-                    if(item.userCreator == userCreator){
-
-                        return(
-                        <div class="d-flex col-md-3">
-                            <div>
-                            <Card sx={{ maxWidth: 345 }}>
-                            <CardHeader
-                                avatar={
-                                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                    F
-                                </Avatar>
-                                }
-                                action={
-                                <IconButton aria-label="share">
-                                <ShareIcon />
-                                </IconButton>
-                                }
-                                title={item.name}
-                            />
-                            <CardMedia
-                                component="img"
-                                height="194"
-                                image={cancha}
-                            />
-                            <CardContent>
-                                <Typography variant="body2" color="text.secondary">
-                                    Deporte: {item.sport} <br></br>
-                                    Fecha de inicio: {item.startDate} <br></br>
-                                    Fecha de fin: {item.endDate} 
-                                </Typography>
-                            </CardContent>
-                            <CardActions disableSpacing>
-                            
-                            <Fab size="small" sx={{ bgcolor: red[500] }} color="primary" aria-label="delete" >
-                            <DeleteIcon onClick={() => confirmacionDelete(item.id)} />
-                            </Fab>
-                        
-                            &nbsp;&nbsp;
-                            <Fab size="small" sx={{ bgcolor: green[500] }} color="primary" aria-label="edit">
-                            <EditIcon onClick={() => cambiarEstadoModal(!estadoModal)}/>
-                            </Fab>
-                                <ExpandMore
-                                expand={expanded}
-                                onClick={handleExpandClick}
-                                aria-expanded={expanded}
-                                aria-label="show more"
-                                >
-                                <ExpandMoreIcon />
-                                </ExpandMore>
-                            </CardActions>
-                            <Collapse in={expanded} timeout="auto" unmountOnExit>
-                                <CardContent>
-                                <Typography paragraph>Descripcion:</Typography>
-                                <Typography paragraph>
-                                    {item.description}
-                                </Typography>
-                                </CardContent>
-                            </Collapse>
-                            </Card>
-                            </div> 
-                            <Modal
-                                estado={estadoModal}
-                                cambiarEstado={cambiarEstadoModal}
-                                titulo="Modificar torneo"
-                                mostrarHeader={true}
-                                mostrarOverlay={true}
-                                posicionModal={'center'}
-                                padding={'20px'}
-                                key={item.id}
-                            >
-                                <Contenido>
-                                
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <div class="col-md">
-                                        <label class="labels">Nombre del torneo</label>
-                                        <input  className="form-control"
-                                        placeholder="Ingrese el nombre del torneo"  
-                                        type="text" 
-                                        name="name" 
-                                        onChange={handleInputChange}/>
-                                    </div>  
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <div class="col-md">
-                                        <label class="labels">Nombre del deporte</label>
-                                        <input className="form-control"
-                                        placeholder={item.sport} 
-                                        type="text" 
-                                        name="sport" 
-                                        //value={item.sport}
-                                        onChange={handleInputChange}/> 
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                <div class="row">
-                                <div class="col-md">
-                                    <label class="labels">Fecha de inicio del torneo</label>
-                                    <input className="form-control" 
-                                    type="date" 
-                                    name="startDate" 
-                                    //value={item.startDate}
-                                    onChange={handleInputChange}/>
-                                </div>
-                                <div class="col-md">
-                                        <label class="labels">Fecha de finalización del torneo</label>
-                                        <input className="form-control" 
-                                        type="date" 
-                                        name="endDate" 
-                                        //value={item.endDate}
-                                        onChange={handleInputChange}/> 
-                                    </div>
-                                </div>
-                            </div>    
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="col-md">
-                                    <label class="labels">Descripción del torneo</label>
-                                    <textarea className="form-control"
-                                    placeholder="Ingrese la descripcion"
-                                    type="text" 
-                                    name="description" 
-                                    //value={item.description}
-                                    onChange={handleInputChange}/> 
-                                </div>
-                            </div>
-                                    <Boton  onClick={() => {cambiarEstadoModal(!estadoModal); confirmacionModify(item.id, userCreator)}}>Guardar cambios</Boton>
-                                </Contenido>
-                            </Modal>
-                            
-                             </div> 
-                             
-                
-                        
-                
-                )}})} 
-                <div className="container">
+            <div className="container">
                 <form class="px-2 mx-auto mt-3 w-75 d-flex mb-3" onSubmit={buscador}>
                     <input
                         class="form-control inputBuscar mr-sm-2"
@@ -359,16 +222,177 @@ export const  MisTorneos =() =>{
                                         <StyledTableCell>{item.startDate}</StyledTableCell>
                                         <StyledTableCell>{item.endDate}</StyledTableCell>
                                         <StyledTableCell>
-                                            <button  onClick={unirmeTorneo} value={item.id}>Enviar solicitud</button>
+                                            <button  className="btn btn-success mt-2 mb-2 mx-2 h-25" onClick={() => cambiarEstadoModal(!estadoModal)}>Enviar solicitud</button>
                                         </StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                             </TableBody>
                         </Table>
                 </TableContainer>
+                <Modal
+                    titulo="Elegir equipo para unirse al torneo"
+                    mostrarHeader={true}
+                    mostrarOverlay={true}
+                    posicionModal={'center'}
+                    padding={'20px'}
+                >
+                    <Contenido>
+                                        
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="col-md">
+                                <label class="labels">Nombre del equipo</label>
+                                <input  className="form-control"
+                                    placeholder="Ingrese el nombre del equipo"  
+                                    type="text" 
+                                    name="name" 
+                                    onChange={handleInputChange}/>
+                            </div> 
+                        </div>   
+                        <Boton onClick={() => {cambiarEstadoModal(!estadoModal); unirmeTorneo()}}>Aceptar</Boton>
+                    </Contenido>
+            </Modal>
             </div>
-                </div>
+            <div class="container">
+                <div class="d-flex overflow-scroll mt-3">
+                        {listTorneos && listTorneos.map(item => {
+                        if(item.userCreator == userCreator){
 
+                            return(
+                            <div class="d-flex col-md-3">
+                                <div>
+                                <Card sx={{ maxWidth: 345 }}>
+                                <CardHeader
+                                    avatar={
+                                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                        F
+                                    </Avatar>
+                                    }
+                                    action={
+                                    <IconButton aria-label="share">
+                                    <ShareIcon />
+                                    </IconButton>
+                                    }
+                                    title={item.name}
+                                />
+                                <CardMedia
+                                    component="img"
+                                    height="194"
+                                    image={cancha}
+                                />
+                                <CardContent>
+                                    <Typography variant="body2" color="text.secondary">
+                                        Deporte: {item.sport} <br></br>
+                                        Fecha de inicio: {item.startDate} <br></br>
+                                        Fecha de fin: {item.endDate} 
+                                    </Typography>
+                                </CardContent>
+                                <CardActions disableSpacing>
+                                
+                                <Fab size="small" sx={{ bgcolor: red[500] }} color="primary" aria-label="delete" >
+                                <DeleteIcon onClick={() => confirmacionDelete(item.id)} />
+                                </Fab>
+                            
+                                &nbsp;&nbsp;
+                                <Fab size="small" sx={{ bgcolor: green[500] }} color="primary" aria-label="edit">
+                                <EditIcon onClick={() => cambiarEstadoModal(!estadoModal)}/>
+                                </Fab>
+                                    <ExpandMore
+                                    expand={expanded}
+                                    onClick={handleExpandClick}
+                                    aria-expanded={expanded}
+                                    aria-label="show more"
+                                    >
+                                    <ExpandMoreIcon />
+                                    </ExpandMore>
+                                </CardActions>
+                                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                                    <CardContent>
+                                    <Typography paragraph>Descripcion:</Typography>
+                                    <Typography paragraph>
+                                        {item.description}
+                                    </Typography>
+                                    </CardContent>
+                                </Collapse>
+                                </Card>
+                                </div> 
+                                <Modal
+                                    estado={estadoModal}
+                                    cambiarEstado={cambiarEstadoModal}
+                                    titulo="Modificar torneo"
+                                    mostrarHeader={true}
+                                    mostrarOverlay={true}
+                                    posicionModal={'center'}
+                                    padding={'20px'}
+                                    key={item.id}
+                                >
+                                    <Contenido>
+                                    
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="col-md">
+                                            <label class="labels">Nombre del torneo</label>
+                                            <input  className="form-control"
+                                            placeholder="Ingrese el nombre del torneo"  
+                                            type="text" 
+                                            name="name" 
+                                            onChange={handleInputChange}/>
+                                        </div>  
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="col-md">
+                                            <label class="labels">Nombre del deporte</label>
+                                            <input className="form-control"
+                                            placeholder={item.sport} 
+                                            type="text" 
+                                            name="sport" 
+                                            //value={item.sport}
+                                            onChange={handleInputChange}/> 
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                    <div class="row">
+                                    <div class="col-md">
+                                        <label class="labels">Fecha de inicio del torneo</label>
+                                        <input className="form-control" 
+                                        type="date" 
+                                        name="startDate" 
+                                        //value={item.startDate}
+                                        onChange={handleInputChange}/>
+                                    </div>
+                                    <div class="col-md">
+                                            <label class="labels">Fecha de finalización del torneo</label>
+                                            <input className="form-control" 
+                                            type="date" 
+                                            name="endDate" 
+                                            //value={item.endDate}
+                                            onChange={handleInputChange}/> 
+                                        </div>
+                                    </div>
+                                </div>    
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="col-md">
+                                        <label class="labels">Descripción del torneo</label>
+                                        <textarea className="form-control"
+                                        placeholder="Ingrese la descripcion"
+                                        type="text" 
+                                        name="description" 
+                                        //value={item.description}
+                                        onChange={handleInputChange}/> 
+                                    </div>
+                                </div>
+                                        <Boton  onClick={() => {cambiarEstadoModal(!estadoModal); confirmacionModify(item.id, userCreator)}}>Guardar cambios</Boton>
+                                    </Contenido>
+                                </Modal>
+                                
+                                </div> 
+                                
+                    
+                            
+                    
+                    )}})} 
+                    
+                    </div>
+                </div>
+            
   </Fragment>
     ); 
     
@@ -420,5 +444,4 @@ const Contenido = styled.div`
 		border-radius: 3px;
 	}
 `;
-
 

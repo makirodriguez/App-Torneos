@@ -83,6 +83,7 @@ export const getTeam = /* GraphQL */ `
       id
       name
       users
+      userCreator
       createdAt
       updatedAt
     }
@@ -99,6 +100,7 @@ export const listTeams = /* GraphQL */ `
         id
         name
         users
+        userCreator
         createdAt
         updatedAt
       }
