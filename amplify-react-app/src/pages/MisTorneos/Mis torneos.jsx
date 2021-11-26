@@ -67,7 +67,6 @@ const ExpandMore = styled2((props) => {
 
 export const  MisTorneos =() =>{
 
-    
     const [busqueda, setBusqueda] = useState('');
     const [expanded, setExpanded] = React.useState(false);
     var [array, setArrayBusqueda] = useState([]);
@@ -93,7 +92,7 @@ export const  MisTorneos =() =>{
         }
         getAllTorneos();
         Auth.currentAuthenticatedUser().then(user => {
-            setUserCreator(user.attributes.email);
+            setUserCreator(user.username);
           })
        
     });
@@ -102,6 +101,9 @@ export const  MisTorneos =() =>{
         setExpanded(!expanded);
       };
     
+    const expandirTorneo = () => {
+
+    }
 
     const confirmacionDelete = async (id) => {
         swal({
@@ -189,7 +191,7 @@ export const  MisTorneos =() =>{
     }
 
     return (
-
+        <Fragment>
             <div className="container">
                 <form class="px-2 mx-auto mt-3 w-75 d-flex mb-3" onSubmit={buscador}>
                     <input
@@ -442,5 +444,4 @@ const Contenido = styled.div`
 		border-radius: 3px;
 	}
 `;
-
 
