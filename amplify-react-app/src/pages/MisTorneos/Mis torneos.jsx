@@ -92,7 +92,7 @@ export const  MisTorneos =() =>{
         }
         getAllTorneos();
         Auth.currentAuthenticatedUser().then(user => {
-            setUserCreator(user.username);
+            setUserCreator(user.attributes.email);
           })
        
     });
@@ -101,9 +101,6 @@ export const  MisTorneos =() =>{
         setExpanded(!expanded);
       };
     
-    const expandirTorneo = () => {
-
-    }
 
     const confirmacionDelete = async (id) => {
         swal({

@@ -75,7 +75,7 @@ const MisEquipos = () => {
         }
         getAllTeams();
         Auth.currentAuthenticatedUser().then(user => {
-            setUserCreator(user.username);
+            setUserCreator(user.attributes.email);
           })
        
     });
@@ -112,7 +112,8 @@ const MisEquipos = () => {
        const UpdateTeamInput={
         id: id,
         name: updateTeam.name,
-        users:''
+        users:'',
+        userCreator: userCreator
       }
       await API.graphql({query: mutations.updateTeam, variables: {input: UpdateTeamInput}});
       swal({
@@ -133,7 +134,14 @@ const MisEquipos = () => {
          }); 
          setArrayBusqueda(resultadosBusqueda)
        } 
-    
+    const array2= []
+    for(let i = 0; i<listTeams.length; i++){
+        if(listTeams[i].user == userCreator){
+            console.log(listTeams[i])
+        }
+        //console.log(array2)
+    }
+
 
    const buscador = (e) =>{
        e.preventDefault()

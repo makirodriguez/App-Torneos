@@ -220,7 +220,7 @@
             ]
           },
           "S3DeploymentBucket": "amplify-apptorneos-dev-15259-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/5cf82b66612fe2aa3d152e78b06a0f85a043847a",
+          "S3DeploymentRootKey": "amplify-appsync-files/529537df424373b35eaf4342437ffc77c1ffe749",
           "env": "dev"
         }
       }

@@ -23,7 +23,7 @@ const CrearEquipo = () => {
       }
     getAllTeams();
     Auth.currentAuthenticatedUser().then(user => {
-      setUserCreator(user.username);
+      setUserCreator(user.attributes.email);
     })
   });  
 
@@ -39,7 +39,8 @@ const CrearEquipo = () => {
 
      const CreateTeamInput = {
       name: team.name,
-      users:['']
+      users:[userCreator],
+      userCreator: userCreator
 
     } 
     await API.graphql({query: mutations.createTeam, variables: {input: CreateTeamInput}});   
