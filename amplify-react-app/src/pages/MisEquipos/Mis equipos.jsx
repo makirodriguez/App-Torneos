@@ -143,10 +143,10 @@ const MisEquipos = () => {
        } 
     const array2= []
     for(let i = 0; i<listTeams.length; i++){
-        if(listTeams[i].user == userCreator){
-            console.log(listTeams[i])
+        if(listTeams[i].user = userCreator){
+            array2.push(listTeams[i])
         }
-        //console.log(array2)
+        
     }
 
 
@@ -246,8 +246,7 @@ const MisEquipos = () => {
             </div>
             <div class="container">
                 <div class="d-flex overflow-scroll mt-3">
-                        {listTeams && listTeams.map(item => {
-                        /*if(item.userCreator == userCreator){*/
+                        {array2 && array2.map(item => {
 
                             return(
                             <div class="d-flex col-md-3">
@@ -274,6 +273,9 @@ const MisEquipos = () => {
                                 <CardContent>
                                     <Typography variant="body2" color="text.secondary">
                                         Creador: {item.userCreator}
+                                        &nbsp;
+                                        Participantes: {item.users}
+                                       
                                     </Typography>
                                 </CardContent>
                                 <CardActions disableSpacing>
