@@ -39,7 +39,6 @@ export const updateTorneo = /* GraphQL */ `
     }
   }
 `;
-
 export const deleteTorneo = /* GraphQL */ `
   mutation DeleteTorneo(
     $input: DeleteTorneoInput!
@@ -47,10 +46,18 @@ export const deleteTorneo = /* GraphQL */ `
   ) {
     deleteTorneo(input: $input, condition: $condition) {
       id
+      name
+      sport
+      startDate
+      endDate
+      description
+      userCreator
+      teams
+      createdAt
+      updatedAt
     }
   }
 `;
-
 export const createProfile = /* GraphQL */ `
   mutation CreateProfile(
     $input: CreateProfileInput!
@@ -87,7 +94,6 @@ export const updateProfile = /* GraphQL */ `
     }
   }
 `;
-
 export const deleteProfile = /* GraphQL */ `
   mutation DeleteProfile(
     $input: DeleteProfileInput!

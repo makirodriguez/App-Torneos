@@ -100,6 +100,7 @@ export const onCreateTeam = /* GraphQL */ `
       id
       name
       users
+      userCreator
       createdAt
       updatedAt
     }
@@ -111,6 +112,7 @@ export const onUpdateTeam = /* GraphQL */ `
       id
       name
       users
+      userCreator
       createdAt
       updatedAt
     }
@@ -122,6 +124,7 @@ export const onDeleteTeam = /* GraphQL */ `
       id
       name
       users
+      userCreator
       createdAt
       updatedAt
     }

@@ -14,6 +14,7 @@ import Modal from './Modal'
 import * as mutations from '../../graphql/mutations';
 import { styled as styled2 } from '@mui/material/styles';
 import styled  from 'styled-components';
+import { chainPropTypes } from "@mui/utils";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -31,6 +32,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import '../../App.css';
 import cancha from '../../imagenes/cancha.jpg';
 import DeleteIcon from '@mui/icons-material/Delete';
+
 
 const StyledTableCell = styled2(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -58,7 +60,7 @@ const MisEquipos = () => {
     const [busqueda, setBusqueda] = useState('');
     const [expanded, setExpanded] = React.useState(false);
     var [array, setArrayBusqueda] = useState([]);
-    const [union, setUnion]= useState();
+    const [union, setUnion]= useState('');
     const [userCreator, setUserCreator] = useState('');
     const [estadoModal, cambiarEstadoModal] = useState(false);
     const [updateTeam, setUpdateTeam] = useState({
@@ -67,6 +69,7 @@ const MisEquipos = () => {
         users:'',
         userCreator:''
     });
+    const [email, setEmail]= useState('');
 
     useEffect(() =>{
         async function getAllTeams(){
@@ -75,10 +78,13 @@ const MisEquipos = () => {
         }
         getAllTeams();
         Auth.currentAuthenticatedUser().then(user => {
-            setUserCreator(user.attributes.email);
+            setUserCreator(user.username);
+            setEmail(user.attributes.email);
+            
           })
        
-    });
+    }, []);
+
 
     const confirmacionDelete = async (id) => {
         swal({
@@ -107,13 +113,14 @@ const MisEquipos = () => {
       }
 
      
-    const confirmacionModify = async (id, userCreator) => {
+    const confirmacionModify = async (id) => {
 
        const UpdateTeamInput={
         id: id,
         name: updateTeam.name,
-        users:'',
-        userCreator: userCreator
+        users:solicitudes,
+        userCreator: email
+
       }
       await API.graphql({query: mutations.updateTeam, variables: {input: UpdateTeamInput}});
       swal({
@@ -158,18 +165,46 @@ const MisEquipos = () => {
      
    }
 
+   const solicitudes =[];
 
-   const unirmeTeam = (e) => {
+   const unirmeTeam = async (e) => {
        setUnion(e.target.value)
-       console.log(e.target.value)
-       swal({
-            title: "Solitud enviada con éxito",
-            text: "El equipo revisará su solicitud",
-            icon: "success",
-            button: "Aceptar",
-        });
-   }
-
+       solicitudes.push(email)
+       
+       listTeams.map(e=>{
+           if(e.id == union){
+                e.users.map(m=> {
+                    solicitudes.push(m)                
+                   /* solicitudes.map(n=>{
+                         if(n === m){
+                            swal({
+                                title: "Ya enviaste una solicitud al equipo",
+                                text: "Aguarde que el equipo acepte su solicitud",
+                                icon: "error",
+                                button: "Aceptar",
+                            });       
+                        }
+                        else{  */
+                            const UpdateTeam = {
+                                id: e.id,
+                                name: e.name,
+                                users: solicitudes
+                            }
+                            API.graphql({query: mutations.updateTeam, variables: {input: UpdateTeam}});
+                            swal({
+                                title: "Solitud enviada con éxito",
+                                text: "El equipo revisará su solicitud",
+                                icon: "success",
+                                button: "Aceptar",
+                            });              
+                    /*    }
+                    }) */
+            })
+                
+             }          
+        })       
+    }
+   
     return (
         <Fragment>
              <div className="container">
@@ -198,7 +233,10 @@ const MisEquipos = () => {
                                     <StyledTableCell component="th" scope="row">{item.name}</StyledTableCell>
                                     <StyledTableCell component="th" scope="row">{item.userCreator}</StyledTableCell>
                                     <StyledTableCell>
-                                        <button className="btn btn-success mt-2 mb-2 mx-2 h-25" onClick={unirmeTeam} value={item.id}>Enviar solicitud</button>
+
+                                    <button className="btn bg-success"
+                                    onClick={unirmeTeam} value={item.id}>Enviar solicitud</button>
+
                                     </StyledTableCell>
                                 </StyledTableRow>
                             ))}
@@ -243,7 +281,7 @@ const MisEquipos = () => {
                                 <Fab size="small" sx={{ bgcolor: red[500] }} color="primary" aria-label="delete" >
                                 <DeleteIcon onClick={() => confirmacionDelete(item.id, userCreator)} />
                                 </Fab>
-                            
+                           
                                 &nbsp;&nbsp;
                                 <Fab size="small" sx={{ bgcolor: green[500] }} color="primary" aria-label="edit">
                                 <EditIcon onClick={() => cambiarEstadoModal(!estadoModal)}/>
