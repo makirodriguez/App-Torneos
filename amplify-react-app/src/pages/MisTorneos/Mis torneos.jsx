@@ -31,6 +31,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Fab from '@mui/material/Fab';
 import EditIcon from '@mui/icons-material/Edit';
 import '../../App.css';
+import { CompressOutlined } from '@mui/icons-material';
 
 
 const StyledTableCell = styled2(TableCell)(({ theme }) => ({
@@ -84,18 +85,26 @@ export const  MisTorneos =() =>{
         userCreator:'',
         teams:''
     });
-    
+    const [listTeams, setListTeams] = useState([]);
+    const [team, setTeam] = useState('');
     useEffect(() =>{
         async function getAllTorneos(){
             const allTorneos = await API.graphql({query: queries.listTorneos});
             setListTorneos(allTorneos.data.listTorneos.items);  
         }
-        getAllTorneos();
+        getAllTorneos()
+        async function getAllTeams(){
+            const allTeams = await API.graphql({query: queries.listTeams});
+            setListTeams(allTeams.data.listTeams.items);  
+        }
+        getAllTeams()
+        
         Auth.currentAuthenticatedUser().then(user => {
             setUserCreator(user.username);
           })
        
-    });
+    }, []);
+
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -177,9 +186,31 @@ export const  MisTorneos =() =>{
     
     }
 
+    const solicitudes =[];
+
     const unirmeTorneo = (e) => {
         setUnion(e.target.value)
-        console.log(e.target.value)
+        solicitudes.push(team)
+        listTorneos.map(e=>{
+            if(e.id == union){
+                e.teams.map(m=>{
+                    solicitudes.push(m)
+                    console.log(solicitudes)
+                    const UpdateTorneoInput={
+                        id: e.id,
+                        name: e.name,
+                        sport: e.sport,
+                        startDate: e.startDate,
+                        endDate: e.endDate,
+                        description: e.description,
+                        userCreator: e.userCreator,
+                        teams:solicitudes
+                      }
+                       API.graphql({query: mutations.updateTorneo, variables: {input: UpdateTorneoInput}});
+                })
+                
+            }
+        })
         swal({
              title: "Solitud enviada con éxito",
              text: "El creador del torneo revisará su solicitud",
@@ -187,6 +218,11 @@ export const  MisTorneos =() =>{
              button: "Aceptar",
          });
     }
+
+    const handleChange = (e) => {
+        setTeam(e.target.value);
+        console.log(team)
+      };
 
     return (
         <Fragment>
@@ -208,6 +244,7 @@ export const  MisTorneos =() =>{
                                     <StyledTableCell>Torneo</StyledTableCell>
                                     <StyledTableCell>Fecha de inicio</StyledTableCell>
                                     <StyledTableCell>Fecha de fin</StyledTableCell>
+                                    <StyledTableCell>Equipo</StyledTableCell>
                                     <StyledTableCell></StyledTableCell>
                                 </TableRow>
                             </TableHead>
@@ -220,40 +257,36 @@ export const  MisTorneos =() =>{
                                         <StyledTableCell>{item.startDate}</StyledTableCell>
                                         <StyledTableCell>{item.endDate}</StyledTableCell>
                                         <StyledTableCell>
-                                            <button  className="btn btn-success mt-2 mb-2 mx-2 h-25" onClick={() => cambiarEstadoModal(!estadoModal)}>Enviar solicitud</button>
+                                            <select
+                                            className="custom-select my-1 mr-2"
+                                            id="inlineFormCustomSelect"
+                                            name="team"
+                                            value={team}
+                                            onChange={handleChange}
+                                          >
+                                            <option default>
+                                              Equipo para unirse
+                                            </option>
+                                            {listTeams.map((i) => (
+                                              <option value={i.name}>{i.name}</option>
+                                            ))}
+                                          </select>
+                                            
+                                        </StyledTableCell>
+                                        <StyledTableCell>
+                                            <button  className="btn btn-success mt-2 mb-2 mx-2 h-25" value={item.id} onClick={unirmeTorneo}>Enviar solicitud</button>
                                         </StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                             </TableBody>
                         </Table>
                 </TableContainer>
-                <Modal
-                    titulo="Elegir equipo para unirse al torneo"
-                    mostrarHeader={true}
-                    mostrarOverlay={true}
-                    posicionModal={'center'}
-                    padding={'20px'}
-                >
-                    <Contenido>
-                                        
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="col-md">
-                                <label class="labels">Nombre del equipo</label>
-                                <input  className="form-control"
-                                    placeholder="Ingrese el nombre del equipo"  
-                                    type="text" 
-                                    name="name" 
-                                    onChange={handleInputChange}/>
-                            </div> 
-                        </div>   
-                        <Boton onClick={() => {cambiarEstadoModal(!estadoModal); unirmeTorneo()}}>Aceptar</Boton>
-                    </Contenido>
-            </Modal>
+                
             </div>
             <div class="container">
                 <div class="d-flex overflow-scroll mt-3">
                         {listTorneos && listTorneos.map(item => {
-                        if(item.userCreator == userCreator){
+
 
                             return(
                             <div class="d-flex col-md-3">
@@ -329,7 +362,7 @@ export const  MisTorneos =() =>{
                                         <div class="col-md">
                                             <label class="labels">Nombre del torneo</label>
                                             <input  className="form-control"
-                                            placeholder="Ingrese el nombre del torneo"  
+                                            placeholder={item.name} 
                                             type="text" 
                                             name="name" 
                                             onChange={handleInputChange}/>
@@ -341,8 +374,7 @@ export const  MisTorneos =() =>{
                                             <input className="form-control"
                                             placeholder={item.sport} 
                                             type="text" 
-                                            name="sport" 
-                                            //value={item.sport}
+                                            name="sport"
                                             onChange={handleInputChange}/> 
                                         </div>
                                     </div>
@@ -353,7 +385,6 @@ export const  MisTorneos =() =>{
                                         <input className="form-control" 
                                         type="date" 
                                         name="startDate" 
-                                        //value={item.startDate}
                                         onChange={handleInputChange}/>
                                     </div>
                                     <div class="col-md">
@@ -361,7 +392,6 @@ export const  MisTorneos =() =>{
                                             <input className="form-control" 
                                             type="date" 
                                             name="endDate" 
-                                            //value={item.endDate}
                                             onChange={handleInputChange}/> 
                                         </div>
                                     </div>
@@ -370,10 +400,9 @@ export const  MisTorneos =() =>{
                                     <div class="col-md">
                                         <label class="labels">Descripción del torneo</label>
                                         <textarea className="form-control"
-                                        placeholder="Ingrese la descripcion"
+                                        placeholder={item.description}
                                         type="text" 
                                         name="description" 
-                                        //value={item.description}
                                         onChange={handleInputChange}/> 
                                     </div>
                                 </div>
@@ -386,7 +415,7 @@ export const  MisTorneos =() =>{
                     
                             
                     
-                    )}})} 
+                    )})} 
                     
                     </div>
                 </div>
