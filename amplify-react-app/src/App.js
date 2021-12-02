@@ -14,6 +14,7 @@ import React, { useState, useEffect } from 'react';
 import MisEquipos from './pages/MisEquipos/Mis equipos';
 import CrearEquipo from './pages/CrearEquipo/CrearEquipo';
 import CrearTorneo from './pages/CrearTorneo/CrearTorneo';
+import Ranking from './pages/Ranking/Ranking';
 
 
 Amplify.configure(awsconfig);
@@ -40,6 +41,7 @@ function App() {
             <Route path="/mis-torneos" exact component={MisTorneos} />
             <Route path="/crear-equipo" exact component={CrearEquipo} />
             <Route path="/mis-equipos" exact component={MisEquipos} />
+            <Route path="/ranking" exact component={Ranking} />
             <Route path="*">
               <Redirect to="/" />
             </Route>

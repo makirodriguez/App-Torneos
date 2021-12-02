@@ -27,6 +27,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red, green } from '@mui/material/colors';
 import ShareIcon from '@mui/icons-material/Share';
+import SendIcon from '@mui/icons-material/Send';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Fab from '@mui/material/Fab';
 import EditIcon from '@mui/icons-material/Edit';
@@ -299,8 +300,8 @@ export const  MisTorneos =() =>{
                                     </Avatar>
                                     }
                                     action={
-                                    <IconButton aria-label="share">
-                                    <ShareIcon />
+                                    <IconButton aria-label="send" href='/ranking'>
+                                    <SendIcon />
                                     </IconButton>
                                     }
                                     title={item.name}

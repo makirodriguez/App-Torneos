@@ -73,19 +73,10 @@ const Perfil = () => {
                             <h4 class="text-right">Configurar perfil</h4>
                         </div>
                         
-                        <div class="row mt-2">
-                            <div class="col-md-6"><label class="labels">Nombre</label><input type="text" class="form-control" placeholder="Nombre" name="name" onChange={handleInputChange}></input></div>
-                            <div class="col-md-6"><label class="labels">Apellido</label><input type="text" class="form-control" placeholder="Apellido" name="lastname" onChange={handleInputChange}></input></div>
-                        </div>
                         <div class="row mt-3">
                             <div class="col-md-12"><label class="labels">Numero de telefono</label><input type="text" class="form-control" placeholder="Ingresar numero de telefono" name="number" value={phone_number}></input></div>
                             <div class="col-md-12"><label class="labels">Email</label><input type="email" class="form-control" placeholder="usuario@ejemplo.com" name="email" value={email}></input></div>
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-md-6"><label class="labels">País</label><input type="text" class="form-control" placeholder="Ingresar país" name="country" onChange={handleInputChange}></input></div>
-                            <div class="col-md-6"><label class="labels">Provincia</label><input type="text" class="form-control"  placeholder="Ingresar provincia" name="province" onChange={handleInputChange}></input></div>
-                        </div>
-                        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" >Guardar cambios</button></div>
                 </form>
 
                     </div>
