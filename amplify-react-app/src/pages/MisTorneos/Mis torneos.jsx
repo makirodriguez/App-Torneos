@@ -288,7 +288,7 @@ export const  MisTorneos =() =>{
                 <div class="d-flex overflow-scroll mt-3">
                         {listTorneos && listTorneos.map(item => {
 
-
+                            if(item.userCreator == userCreator){
                             return(
                             <div class="d-flex col-md-3">
                                 <div>
@@ -416,7 +416,7 @@ export const  MisTorneos =() =>{
                     
                             
                     
-                    )})} 
+                    )}})} 
                     
                     </div>
                 </div>
