@@ -58,60 +58,67 @@ const StyledTableCell = styled2(TableCell)(({ theme }) => ({
       };
 
     return(
-      <div class="container mt-3">
+      <div class="container text-center mt-3 mb-3">
         <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 5 }} aria-label="customized table">
-            <TableHead>
-                <TableRow>
-                <StyledTableCell>
-                                            <select
-                                            className="custom-select my-1 mr-2"
-                                            id="inlineFormCustomSelect"
-                                            name="team"
-                                            value={torneo}
-                                            onChange={handleChange}
-                                          >
-                                            <option default>
-                                                Seleccione un torneo
-                                            </option>
-                                            {listTorneos.map((i) => (
-                                              <option value={i.name}>{i.name}</option>
-                                            ))}
-                                          </select>
-                                            
-                                        </StyledTableCell>
-                    <StyledTableCell>Equipo</StyledTableCell>
-                    <StyledTableCell>Puntos</StyledTableCell>
-                   
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                  {listTorneos.map((item) => {
-                      if(item.name == torneo){
-                        return(
-                          <StyledTableRow>
-                            <StyledTableCell component="th" scope="row">{item.name}</StyledTableCell>
-                              <div class="container mt-3 mb-3">
-                                <StyledTableRow> <hr />
-                                  {item.teams.map(m=> 
-                                    <div class="container mt-3 mb-3"> 
-                                      <hr /><StyledTableCell component="th" scope="row">{m}</StyledTableCell> <hr />
+          <Table sx={{ minWidth: 5 }} aria-label="customized table">
+              <TableHead>
+                  <TableRow>
+                    <StyledTableCell align="center" width="120">
+                                              <select
+                                                className="custom-select my-1 mr-2"
+                                                id="inlineFormCustomSelect"
+                                                name="team"
+                                                value={torneo}
+                                                onChange={handleChange}
+                                              >
+                                                <option default>
+                                                    Seleccione un torneo
+                                                </option>
+                                                {listTorneos.map((i) => (
+                                                  <option value={i.name}>{i.name}</option>
+                                                ))}
+                                              </select>
+                                                
+                    </StyledTableCell>
+                    <StyledTableCell align="center">Equipo</StyledTableCell>
+                    <StyledTableCell align="center">Puntos</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+              <TableBody>
+                    {listTorneos.map((item) => {
+                        if(item.name == torneo){
+                          return(
+                            <StyledTableRow align="center">
+                              <StyledTableCell align="center" component="th" scope="row">
+                                {item.name}
+                              </StyledTableCell>
+                                <StyledTableCell align="center">
+                                  {item.teams.map(m=>
+                                    <div class="container text-center">
+                                      <hr /><StyledTableCell component="th" scope="row">{m}</StyledTableCell> 
                                     </div>
-                                  )} <hr />
-                                </StyledTableRow> 
-                              </div>
-                            <StyledTableCell>
-                                0
-                            </StyledTableCell>
-                          </StyledTableRow>
-                        )  
-                      }
-                    }  
-                  )}
-            </TableBody>
-        </Table>
-    </TableContainer>
-    </div>
+                                  )}
+                                </StyledTableCell>
+                              <StyledTableCell align="center">
+                                <hr />
+                                <br></br>
+                                12<br></br><br></br><hr />
+                                <br></br>
+                                8 <br></br><br></br><hr />
+                                <br></br>
+                                6 <br></br><br></br><hr />
+                                <br></br>
+                                1 <br></br><br></br><hr />
+                              </StyledTableCell>
+                            </StyledTableRow>
+                          )  
+                        }
+                      }  
+                    )}
+              </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     );
    
 
