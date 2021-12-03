@@ -58,7 +58,7 @@ const StyledTableCell = styled2(TableCell)(({ theme }) => ({
       };
 
     return(
-
+      <div class="container mt-3">
         <TableContainer component={Paper}>
         <Table sx={{ minWidth: 5 }} aria-label="customized table">
             <TableHead>
@@ -86,30 +86,32 @@ const StyledTableCell = styled2(TableCell)(({ theme }) => ({
                 </TableRow>
             </TableHead>
             <TableBody>
-                {listTorneos.map((item) => {
-                    if(item.name == torneo){
-                       return(
-                        <StyledTableRow>
-                        <StyledTableCell component="th" scope="row">{item.name}</StyledTableCell>
-                        <StyledTableRow>
-                        {item.teams.map(m=>
-                        <StyledTableCell component="th" scope="row">{m}<br></br></StyledTableCell>
-                            )}
-                        </StyledTableRow>
-
-                        <StyledTableCell>
-                            0
-                        </StyledTableCell>
-                    </StyledTableRow>
-                       )
-                        
-                    }
-                }
-                    
-                )}
+                  {listTorneos.map((item) => {
+                      if(item.name == torneo){
+                        return(
+                          <StyledTableRow>
+                            <StyledTableCell component="th" scope="row">{item.name}</StyledTableCell>
+                              <div class="container mt-3 mb-3">
+                                <StyledTableRow> <hr />
+                                  {item.teams.map(m=> 
+                                    <div class="container mt-3 mb-3"> 
+                                      <hr /><StyledTableCell component="th" scope="row">{m}</StyledTableCell> <hr />
+                                    </div>
+                                  )} <hr />
+                                </StyledTableRow> 
+                              </div>
+                            <StyledTableCell>
+                                0
+                            </StyledTableCell>
+                          </StyledTableRow>
+                        )  
+                      }
+                    }  
+                  )}
             </TableBody>
         </Table>
-    </TableContainer> 
+    </TableContainer>
+    </div>
     );
    
 
