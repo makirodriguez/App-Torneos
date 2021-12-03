@@ -141,13 +141,13 @@ const MisEquipos = () => {
          }); 
          setArrayBusqueda(resultadosBusqueda)
        } 
-    const array2= []
+   /*  const array2= []
     for(let i = 0; i<listTeams.length; i++){
-        if(listTeams[i].user = userCreator){
+        if(listTeams[i].userCreator = email){
             array2.push(listTeams[i])
         }
         
-    }
+    } */
 
 
    const buscador = (e) =>{
@@ -246,8 +246,8 @@ const MisEquipos = () => {
             </div>
             <div class="container">
                 <div class="d-flex overflow-scroll mt-3">
-                        {array2 && array2.map(item => {
-
+                        {listTeams && listTeams.map(item => {
+                            if(item.userCreator == email){
                             return(
                             <div class="d-flex col-md-3">
                                 <div>
@@ -319,7 +319,7 @@ const MisEquipos = () => {
                                 
                             </div> 
                     
-                    )}/*}*/)}
+                    )}}/*}*/)}
                 </div>
             </div>
 

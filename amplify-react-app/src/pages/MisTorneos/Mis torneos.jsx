@@ -88,6 +88,7 @@ export const  MisTorneos =() =>{
     });
     const [listTeams, setListTeams] = useState([]);
     const [team, setTeam] = useState('');
+    const [email, setEmail]= useState('');
     useEffect(() =>{
         async function getAllTorneos(){
             const allTorneos = await API.graphql({query: queries.listTorneos});
@@ -102,6 +103,7 @@ export const  MisTorneos =() =>{
         
         Auth.currentAuthenticatedUser().then(user => {
             setUserCreator(user.username);
+            setEmail(user.attributes.email);
           })
        
     }, []);
@@ -268,9 +270,10 @@ export const  MisTorneos =() =>{
                                             <option default>
                                               Equipo para unirse
                                             </option>
-                                            {listTeams.map((i) => (
-                                              <option value={i.name}>{i.name}</option>
-                                            ))}
+                                            {listTeams.map((i) => {
+                                                if(i.userCreator == email){
+                                              return(<option value={i.name}>{i.name}</option>)}
+                                                })}
                                           </select>
                                             
                                         </StyledTableCell>
@@ -288,7 +291,7 @@ export const  MisTorneos =() =>{
                 <div class="d-flex overflow-scroll mt-3">
                         {listTorneos && listTorneos.map(item => {
 
-
+                            if(item.userCreator == userCreator){
                             return(
                             <div class="d-flex col-md-3">
                                 <div>
@@ -416,7 +419,7 @@ export const  MisTorneos =() =>{
                     
                             
                     
-                    )})} 
+                    )}})} 
                     
                     </div>
                 </div>
